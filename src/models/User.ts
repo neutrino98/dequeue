@@ -1,23 +1,47 @@
 import * as mongoose from 'mongoose'
+import * as validator from 'validator'
+
 const Schema = mongoose.Schema
 
-interface User extends mongoose.Document {
+export enum Role {
+  Student = 'Student',
+  Doctor = 'Doctor',
+  Admin = 'Admin'
+}
+
+export interface User extends mongoose.Document {
   name: string
   surname: string
   mobile: number
-  login: string
   password: string
   email: string
-  role: string
+  role: Role
 }
 
 const UserSchema = new Schema({
-  name: String,
-  surname: String,
-  mobile: Number,
-  login: String,
-  password: String,
-  email: String,
+  name: {
+    type: String,
+    min: 2,
+    max: 30
+  },
+  surname: {
+    type: String,
+    min: 2,
+    max: 30
+  },
+  mobile: {
+    type: String,
+    validate: mobile => validator.isMobilePhone(mobile, 'any')
+  },
+  password: {
+    type: String,
+    min: 6,
+    max: 100
+  },
+  email: {
+    type: String,
+    validate: login => validator.isEmail(login)
+  },
   role: {
     type: String,
     enum: ['Student', 'Doctor', 'Admin']

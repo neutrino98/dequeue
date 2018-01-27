@@ -1,26 +1,24 @@
 import { Request, Response } from 'express'
-import UserModel from '../models/User'
+import UserModel, { User, Role } from '../models/User'
 import { successRes, failRes } from '../utils/responses'
 import { sha512 } from '../utils/sha512'
 import { Error } from 'mongoose'
+import * as _ from 'lodash'
 
-export async function signup (req: Request, res: Response) {
-  const user = {
-    name: req.body.name,
-    surname: req.body.surname,
-    login: req.body.login,
-    password: sha512(req.body.password).passwordHash,
-    mobile: req.body.mobile,
-    email: req.body.email,
-    role: req.body.role
+export async function signup ({ body }: Request, res: Response) {
+  let user = {
+    ..._.pick(body, ['name', 'surname', 'login', 'mobile', 'email', 'role']),
+    password: sha512(body.password).passwordHash
   }
+
+  if (user.role === Role.Admin) {
+    res.status(400).json(failRes("You can't sign up as admin"))
+  }
+
   try {
-    await new UserModel(
-        user
-    ).save()
-    res.json(successRes({ user }))
+    await UserModel.create(user)
+    res.status(200).json(successRes({ user }))
   } catch (e) {
     res.json(failRes(e.name))
   }
-
 }
