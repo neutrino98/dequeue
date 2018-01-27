@@ -14,7 +14,6 @@ export async function signup (req: Request, res: Response) {
     email: req.body.email,
     role: req.body.role
   }
-  console.log('user' + user)
   try {
     await new UserModel(
         user

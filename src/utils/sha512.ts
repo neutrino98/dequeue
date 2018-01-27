@@ -1,4 +1,6 @@
 const crypto = require('crypto')
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 const salt = process.env.SERVER_SALT
 
