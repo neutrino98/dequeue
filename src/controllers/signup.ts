@@ -1,26 +1,21 @@
 import { Request, Response } from 'express'
-import UserModel from '../models/User'
+import UserModel, { User, Role } from '../models/User'
 import { successRes, failRes } from '../utils/responses'
-import { sha512 } from '../utils/sha512'
 import { Error } from 'mongoose'
+import * as _ from 'lodash'
+import { sha512 } from '../utils/sha512'
+import { checkRole } from '../middlewares/signup'
 
-export async function signup (req: Request, res: Response) {
-  const user = {
-    name: req.body.name,
-    surname: req.body.surname,
-    login: req.body.login,
-    password: sha512(req.body.password).passwordHash,
-    mobile: req.body.mobile,
-    email: req.body.email,
-    role: req.body.role
+export async function signup ({ body }: Request, res: Response) {
+  let user = {
+    ..._.pick(body, ['name', 'surname', 'mobile', 'email', 'password', 'role'])
   }
+
   try {
-    await new UserModel(
-        user
-    ).save()
-    res.json(successRes({ user }))
+    await UserModel.create(user)
+    user.password = sha512(user.password).passwordHash
+    res.status(200).json(successRes({ user }))
   } catch (e) {
-    res.json(failRes(e.name))
+    res.status(500).json(failRes(e.message))
   }
-
 }

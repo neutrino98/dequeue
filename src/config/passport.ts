@@ -8,7 +8,7 @@ passport.use('local', new Strategy({
   session: false
 }, (username, password, done) => {
   const passwordHash = sha512(password).passwordHash
-  UserModel.find({ 'login': username, 'password': passwordHash })
+  UserModel.find({ 'email': username, 'password': passwordHash })
         .then(users => {
           const user = users[0]
           if (!user) {
