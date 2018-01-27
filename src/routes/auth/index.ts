@@ -1,6 +1,5 @@
 import * as express from 'express'
 const authRouter = express.Router()
-import { checkRole, checkExistEmail } from '../../middlewares/signup'
 
 import { login } from '../../controllers/login'
 
@@ -8,6 +7,6 @@ import { signup } from '../../controllers/signup'
 
 authRouter.post('/login', login)
 
-authRouter.post('/signup', checkRole, checkExistEmail, signup)
+authRouter.post('/signup', signup)
 
 export = authRouter
