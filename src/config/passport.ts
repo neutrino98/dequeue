@@ -4,12 +4,10 @@ import * as jwt from 'jsonwebtoken'
 import { sha512 } from '../utils/sha512'
 import UserModel from '../models/User'
 
-const serverSalt = process.env.SERVER_SALT
-
 passport.use('local', new Strategy({
   session: false
 }, (username, password, done) => {
-  const passwordHash = sha512(password, serverSalt).passwordHash
+  const passwordHash = sha512(password).passwordHash
   UserModel.find({ 'login': username, 'password': passwordHash })
         .then(users => {
           const user = users[0]
@@ -24,5 +22,4 @@ passport.use('local', new Strategy({
         .catch(err => {
           done(err)
         })
-    )
-)
+}))
