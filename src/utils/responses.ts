@@ -11,3 +11,7 @@ export const successRes = (data: object, message?: string): Response => ({
 export const failRes = (message: string): Response => ({
   success: false, message, data: undefined
 })
+
+export const serverErrRes = (): Response => ({
+  success: false, message: 'Internal server error', data: undefined
+})
