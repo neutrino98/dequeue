@@ -3,14 +3,14 @@ import LoginForm from '../components/LoginForm'
 
 export default class LoginPage extends React.Component<{}, {}> {
 
-  handleSubmit = (email: string, password: string): void => {
-    alert('email: ' + email + ' password: ' + password)
-    // const response = await fetch('http://localhost:3001/method', {
-    //   method: 'post',
-    //   body: JSON.stringify({
-    //     email, password
-    //   })
-    // })
+  handleSubmit = async (email: string, password: string) => {
+    const response = await fetch('http://localhost:3001/login', {
+      method: 'post',
+      body: JSON.stringify({
+        email, password
+      })
+    })
+    alert(response)
   }
 
   render () {
