@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class RegistrationForm extends React.Component<{}, {}> {
+export default class RegistrationPage extends React.Component<{}, {}> {
   render () {
     return(
       <div className='RegistrationForm'>
