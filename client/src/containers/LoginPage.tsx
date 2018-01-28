@@ -1,11 +1,19 @@
 import * as React from 'react'
-import { Button, Segment } from 'semantic-ui-react'
-import Email from '../components/Email'
-import Password from '../components/Password'
-import * as LoginForm from '../components/LoginForm'
+import LoginForm from '../components/LoginForm'
 
 export default class LoginPage extends React.Component<{}, {}> {
+
+  handleSubmit = (email: string, password: string): void => {
+    alert('email: ' + email + ' password: ' + password)
+    // const response = await fetch('http://localhost:3001/method', {
+    //   method: 'post',
+    //   body: JSON.stringify({
+    //     email, password
+    //   })
+    // })
+  }
+
   render () {
-    return <LoginForm/>
+    return <LoginForm onSubmit={this.handleSubmit}/>
   }
 }
