@@ -21,6 +21,7 @@
     "@types/lodash": "^4.14.93",
     "@types/mongoose": "^4.7.31",
     "@types/node": "^8.5.2",
+    "@types/passport": "^0.4.2",
     "concurrently": "^3.5.1",
     "nodemon": "^1.14.7",
     "tslint": "^5.9.1",

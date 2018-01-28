@@ -3,10 +3,10 @@ const authRouter = express.Router()
 
 import { login } from '../../controllers/login'
 
-import { signup } from '../../controllers/signup'
+import { register } from '../../controllers/register'
 
 authRouter.post('/login', login)
 
-authRouter.post('/signup', signup)
+authRouter.post('/register', register)
 
 export = authRouter

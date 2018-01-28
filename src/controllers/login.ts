@@ -5,11 +5,11 @@ import { successRes, failRes } from '../utils/responses'
 export async function login (req: Request, res: Response, next: NextFunction) {
   passport.authenticate('local', (error, token, user) => {
     if (error) {
-      res.status(401).json(failRes(error))
+      return res.status(401).json(failRes(error))
     }
     if (!user) {
-      res.status(401).json(failRes('No such user'))
+      return res.status(401).json(failRes('No such user'))
     }
-    res.json(successRes({ user: user, token: token }))
+    res.json(successRes({ user, token }))
   })(req, res, next)
 }

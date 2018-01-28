@@ -22,36 +22,41 @@ export interface User extends mongoose.Document {
 const UserSchema = new Schema({
   name: {
     type: String,
-    min: 2,
-    max: 30
+    minlength: 2,
+    maxlength: 30,
+    required: true
   },
   surname: {
     type: String,
-    min: 2,
-    max: 30
+    minlength: 2,
+    maxlength: 30,
+    required: true
   },
   mobile: {
     type: String,
-    validate: mobile => validator.isMobilePhone(mobile, 'any')
+    validate: mobile => validator.isMobilePhone(mobile, 'any'),
+    required: true
   },
   password: {
-    type: String
+    type: String,
+    minlength: 6,
+    maxlength: 100,
+    required: true
   },
   email: {
     type: String,
-    validate: email => validator.isEmail(email)
+    validate: email => validator.isEmail(email),
+    unique: true,
+    required: true
   },
   role: {
     type: String,
-    enum: ['Student', 'Doctor', 'Admin']
+    enum: ['Student', 'Doctor', 'Admin'],
+    required: true
   }
 })
 
 UserSchema.pre('save', function (next) {
-  if (this.password.length < 6 || this.password.length > 30) {
-    let err = new Error('Password must be longer than 6 symbols and shorter than 30 symbols')
-    next(err)
-  }
   this.password = sha512(this.password).passwordHash
   next()
 })
