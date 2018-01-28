@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Input } from 'semantic-ui-react'
+import { Input, InputProps } from 'semantic-ui-react'
 
-export default class Email extends React.Component<{}, {}> {
+export default class Email extends React.Component<InputProps, {}> {
 
   render () {
     return (
