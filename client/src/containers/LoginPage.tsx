@@ -1,26 +1,19 @@
 import * as React from 'react'
-import { Button, Segment } from 'semantic-ui-react'
-import Email from '../components/Email'
-import Password from '../components/Password'
+import LoginForm from '../components/LoginForm'
 
 export default class LoginPage extends React.Component<{}, {}> {
+
+  handleSubmit = async (email: string, password: string) => {
+    const response = await fetch('http://localhost:3001/login', {
+      method: 'post',
+      body: JSON.stringify({
+        email, password
+      })
+    })
+    alert(response)
+  }
+
   render () {
-    return(
-      <form>
-      {/* <Grid
-        textAlign='center'
-        style={{ height: '100%' }}
-        verticalAlign='middle'
-      >
-        <Grid.Column style={{ maxWidth: 450 }}> */}
-            <Segment stacked={true}>
-                  <Email/>
-                  <Password/>
-                  <Button>Sign in</Button>
-            </Segment>
-        {/* </Grid.Column>
-      </Grid> */}
-          </form>
-    )
+    return <LoginForm onSubmit={this.handleSubmit}/>
   }
 }

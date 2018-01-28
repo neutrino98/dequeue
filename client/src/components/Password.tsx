@@ -1,18 +1,18 @@
 import * as React from 'react'
-import { Input } from 'semantic-ui-react'
+import { Input, InputProps } from 'semantic-ui-react'
 
-export default class Password extends React.Component<{}, {}> {
+export default class Password extends React.Component<InputProps, {}> {
   render () {
     return (
         <Input
-            name='password'
-            label='Password:'
-            type='password'
-            required={true}
-            minLength={5}
-            maxLength={20}
-            pattern='[A-Z]'
-            {...this.props}
+          name='password'
+          label='Password:'
+          type='password'
+          required={true}
+          minLength={5}
+          maxLength={20}
+          pattern='[A-Z]+'
+          {...this.props}
         />
     )
   }
