@@ -1,37 +1,55 @@
 import * as React from 'react'
 import LoginForm from '../components/LoginForm'
+import * as api from '../api/auth'
+import * as auth from '../utils/auth'
+import { RouteComponentProps } from 'react-router'
 
-export default class LoginPage extends React.Component<{}, {}> {
+interface State {
+  email: string,
+  password: string
+  error: null | string
+  loading: boolean
+}
 
-  handleSubmit = async (email: string, password: string): Promise<void> => {
+export default class LoginPage extends React.Component<RouteComponentProps<{}>, State> {
+  state = {
+    email: '',
+    password: '',
+    error: null,
+    loading: false
+  }
 
-    console.log('Here')
-    const res = await fetch('http://localhost:3001/api/v1/login', {
-      method: 'post',
-      body: JSON.stringify({
-        email, password
-      })
-    })
-    const json = await res.json()
-    alert(json)
+  handleEmail = ({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ email: value })
+  }
 
-    // const { success, message, data } = await (await fetch('http://localhost:3001/api/v1login', {
-    //   method: 'post',
-    //   body: JSON.stringify({
-    //     email, password
-    //   })
-    // })).json()
-    // if (success) {
-    //   const { user, token } = data
-    //   localStorage.setItem('token', token)
-    //   localStorage.setItem('user', JSON.stringify(user))
-    //   alert('token: ' + token)
-    // } else {
-    //   alert(message)
-    // }
+  handlePassword = ({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ password: value })
+  }
+
+  handleSubmit = async () => {
+    const { email, password } = this.state
+    try {
+      this.setState({ loading: true })
+      const token = await api.login(email, password)
+      auth.setToken(token) 
+      this.props.history.push('/')
+    } catch (e) {
+      this.setState({ error: e.message })
+    }
+    this.setState({ loading: false })
   }
 
   render () {
-    return <LoginForm onSubmit={this.handleSubmit}/>
+    const { error, loading } = this.state
+    return (
+      <LoginForm
+        handleSubmit={this.handleSubmit}
+        handleEmail={this.handleEmail}
+        handlePassword={this.handlePassword}
+        error={error}
+        loading={loading}
+      />
+    )
   }
 }
