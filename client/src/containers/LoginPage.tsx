@@ -35,7 +35,7 @@ export default class LoginPage extends React.Component<RouteComponentProps<{}>, 
     } catch (e) {
       this.setState({ error: e.message })
     } finally {
-        this.setState({loading: false})
+      this.setState({ loading: false })
     }
   }
 
