@@ -6,6 +6,7 @@ import * as path from 'path'
 import * as bodyParser from 'body-parser'
 import * as morgan from 'morgan'
 import * as passport from './config/passport'
+import * as cors from 'cors'
 
 // env vars
 dotenv.config()
@@ -22,6 +23,7 @@ require('./config/passport')
 const app = express()
 app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')))
 app.use(morgan('dev'))
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(routes)

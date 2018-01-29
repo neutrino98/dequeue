@@ -4,7 +4,7 @@ import Email from './Email'
 import Password from './Password'
 
 interface Props {
-  onSubmit: (email: string, password: string) => void
+  onSubmit: (email: string, password: string) => Promise<void>
 }
 
 interface State {
@@ -43,9 +43,12 @@ export default class LoginForm extends React.Component<Props, State> {
               value={password}
             />
             <Button
-              onClick={() => this.props.onSubmit(email, password)}
+              onClick={() => {
+                console.log('call')
+                this.props.onSubmit(email, password)
+              }}
             >
-            Sign in
+              Sign in
             </Button>
           </Segment>
         {/* </Grid.Column>
