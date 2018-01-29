@@ -1,19 +1,54 @@
 import * as React from 'react'
 import LoginForm from '../components/LoginForm'
+import * as api from '../api/auth'
+import { LoginCredentials } from '../api/auth'
+import * as auth from '../utils/auth'
+import { RouteComponentProps } from 'react-router'
 
-export default class LoginPage extends React.Component<{}, {}> {
+interface State extends LoginCredentials {
+  error: null | string
+  loading: boolean
+}
 
-  handleSubmit = async (email: string, password: string) => {
-    const response = await fetch('http://localhost:3001/login', {
-      method: 'post',
-      body: JSON.stringify({
-        email, password
-      })
-    })
-    alert(response)
+export default class LoginPage extends React.Component<RouteComponentProps<{}>, State> {
+  state = {
+    email: '',
+    password: '',
+    error: null,
+    loading: false
+  }
+
+  handleEmail = ({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ email: value })
+  }
+
+  handlePassword = ({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ password: value })
+  }
+
+  handleSubmit = async () => {
+    try {
+      this.setState({ loading: true })
+      const token = await api.login(this.state)
+      auth.setToken(token)
+      this.props.history.push('/')
+    } catch (e) {
+      this.setState({ error: e.message })
+    } finally {
+      this.setState({ loading: false })
+    }
   }
 
   render () {
-    return <LoginForm onSubmit={this.handleSubmit}/>
+    const { error, loading } = this.state
+    return (
+      <LoginForm
+        handleSubmit={this.handleSubmit}
+        handleEmail={this.handleEmail}
+        handlePassword={this.handlePassword}
+        error={error}
+        loading={loading}
+      />
+    )
   }
 }
