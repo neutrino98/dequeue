@@ -1,9 +1,6 @@
 import * as mongoose from 'mongoose'
 import * as validator from 'validator'
-<<<<<<< HEAD
-=======
 import { sha512 } from '../utils/sha512'
->>>>>>> api
 
 const Schema = mongoose.Schema
 
@@ -22,34 +19,11 @@ export interface User extends mongoose.Document {
   role: Role
 }
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
   name: {
     type: String,
-<<<<<<< HEAD
     min: 2,
     max: 30
-  },
-  surname: {
-    type: String,
-    min: 2,
-    max: 30
-  },
-  mobile: {
-    type: String,
-    validate: mobile => validator.isMobilePhone(mobile, 'any')
-  },
-  password: {
-    type: String,
-    min: 6,
-    max: 100
-  },
-  email: {
-    type: String,
-    validate: login => validator.isEmail(login)
-=======
-    minlength: 2,
-    maxlength: 30,
-    required: true
   },
   surname: {
     type: String,
@@ -73,7 +47,6 @@ const UserSchema = new Schema({
     validate: email => validator.isEmail(email),
     unique: true,
     required: true
->>>>>>> api
   },
   role: {
     type: String,
