@@ -9,9 +9,8 @@ export default class Password extends React.Component<InputProps, {}> {
           label='Password:'
           type='password'
           required={true}
-          minLength={5}
+          minLength={6}
           maxLength={20}
-          pattern='[A-Z]+'
           {...this.props}
         />
     )
