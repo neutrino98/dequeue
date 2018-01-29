@@ -1,6 +1,11 @@
 import * as mongoose from 'mongoose'
-import * as extendSchema from 'mongoose-extend-schema'
 import { UserSchema, User } from '../models/User'
+
+const extend = (Schema, obj) => (
+  new mongoose.Schema(
+    Object.assign({}, Schema.obj, obj)
+  )
+)
 
 export interface Doctor extends User {
   activated: Boolean,
@@ -10,7 +15,7 @@ export interface Doctor extends User {
   placeOfWork: String
 }
 
-export enum DoctorSpecialty {
+enum DoctorSpecialty {
     Pediatrician = 'Педіатр',
     Cardiologists = 'Кардіолог',
     Dermatologists = 'Дерматолог',
@@ -23,29 +28,26 @@ export enum DoctorSpecialty {
     Psychiatrists = 'Психіатр'
 }
 
-export enum DoctorCategory {
+enum DoctorCategory {
   HeadDoctor = 'Головний лікар',
   Doctor = 'Лікар'
 }
 
-export const DoctorSchema = extendSchema(UserSchema, {
+export const DoctorSchema = extend(UserSchema, {
   activated: {
     type: Boolean,
     required: true,
     default: false
   },
-  position: {
-    type: String,
-    required: true
-  },
   doctorSpecialty: {
     type: String,
-    enum: DoctorSpecialty,
+    enum: ['Педіатр', 'Кардіолог', 'Дерматолог', 'Невролог','Оториноларинголог',
+      'Хірург', 'Уролог', 'Гастроінтеролог', 'Гінеколог', 'Психіатр' ],
     required: true
   },
   doctorCategory: {
     type: String,
-    enum: DoctorCategory,
+    enum: [ 'Головний лікар', 'Лікар' ],
     required: true
   },
   placeOfWork: {

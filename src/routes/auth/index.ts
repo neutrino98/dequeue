@@ -2,11 +2,11 @@ import * as express from 'express'
 const authRouter = express.Router()
 
 import { login } from '../../controllers/login'
-
-import { register } from '../../controllers/register'
+import { registerUser } from '../../controllers/registerUser'
+import { registerDoctor } from '../../controllers/registerDoctor'
 
 authRouter.post('/login', login)
-
-authRouter.post('/register', register)
+authRouter.post('/register/user', registerUser)
+authRouter.post('/register/doctor', registerDoctor)
 
 export = authRouter
