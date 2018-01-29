@@ -1,19 +1,23 @@
 import * as mongoose from 'mongoose'
+import { UserSchema } from '../models/User'
+import { CabinetSchema } from '../models/Cabinet'
 
 const Schema = mongoose.Schema
 
 interface Dequeue extends mongoose.Document {
-  // cabinet: Cabinet
-  // user: User
+  cabinet: Object,
+  user: Object,
+  timeOfRecording: any,
+  timeOfAppointment: any
 }
 
 const DequeueSchema = new Schema({
-  cabinetId: {
-    type: Schema.Types.ObjectId,
+  cabinet: {
+    type: CabinetSchema,
     required: true
   },
-  userId: {
-    type: Schema.Types.ObjectId,
+  user: {
+    type: UserSchema,
     required: true
   },
   timeOfRecording: {

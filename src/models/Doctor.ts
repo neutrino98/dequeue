@@ -28,7 +28,7 @@ export enum DoctorCategory {
   Doctor = 'Лікар'
 }
 
-const DoctorSchema = extendSchema(UserSchema, {
+export const DoctorSchema = extendSchema(UserSchema, {
   activated: {
     type: Boolean,
     required: true,
