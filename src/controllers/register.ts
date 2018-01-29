@@ -1,9 +1,8 @@
 import { Request, Response } from 'express'
-import UserModel, { User, Role } from '../models/User'
-import { successRes, failRes, serverErrRes } from '../utils/responses'
-import { Error, NativeError, ValidationError } from 'mongoose'
+import UserModel, { Role } from '../models/User'
+import { failRes, serverErrRes, successRes } from '../utils/responses'
+import { ValidationError } from 'mongoose'
 import * as _ from 'lodash'
-import { sha512 } from '../utils/sha512'
 
 export async function register ({ body }: Request, res: Response) {
   let user = _.pick(body, ['name', 'surname', 'mobile', 'email', 'password', 'role'])
@@ -18,7 +17,7 @@ export async function register ({ body }: Request, res: Response) {
       return res.status(400).json(failRes('User with such email is already exist'))
     }
     if (e.name === 'ValidationError') {
-      return res.status(400).json(failRes(e.toString()))
+      return res.status(403).json(failRes(e.toString()))
     }
     res.status(500).json(serverErrRes())
   }

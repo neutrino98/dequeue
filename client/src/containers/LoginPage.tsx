@@ -1,12 +1,11 @@
 import * as React from 'react'
 import LoginForm from '../components/LoginForm'
 import * as api from '../api/auth'
+import { LoginCredentials } from '../api/auth'
 import * as auth from '../utils/auth'
 import { RouteComponentProps } from 'react-router'
 
-interface State {
-  email: string,
-  password: string
+interface State extends LoginCredentials {
   error: null | string
   loading: boolean
 }
@@ -28,16 +27,16 @@ export default class LoginPage extends React.Component<RouteComponentProps<{}>, 
   }
 
   handleSubmit = async () => {
-    const { email, password } = this.state
     try {
       this.setState({ loading: true })
-      const token = await api.login(email, password)
-      auth.setToken(token) 
+      const token = await api.login(this.state)
+      auth.setToken(token)
       this.props.history.push('/')
     } catch (e) {
       this.setState({ error: e.message })
+    } finally {
+        this.setState({loading: false})
     }
-    this.setState({ loading: false })
   }
 
   render () {
