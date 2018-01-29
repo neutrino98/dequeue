@@ -5,7 +5,6 @@ import { successRes, failRes, serverErrRes } from '../utils/responses'
 export async function profileDoctor ({ params }: Request, res: Response) {
   try {
     let doctor = await DoctorModel.findOne({ _id: params.id })
-    console.log(doctor)
     if (!doctor) {
       res.status(404).json(failRes('No such user'))
     }

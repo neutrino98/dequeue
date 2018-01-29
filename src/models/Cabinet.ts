@@ -25,4 +25,3 @@ export const CabinetSchema = new Schema({
 })
 
 export default mongoose.model<Cabinet>('Cabinet', CabinetSchema, 'cabinet')
-

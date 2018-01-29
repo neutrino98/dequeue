@@ -16,7 +16,7 @@ export async function registerDoctor ({ body }: Request, res: Response) {
     res.status(201).json(successRes({ user: _.omit(doctor, ['password']) }))
   } catch (e) {
     if (e.code === 11000) {
-      return res.status(400).json(failRes('User with such email is already exist'))
+      return res.status(400).json(failRes('Doctor with such email is already exist'))
     }
     if (e.name === 'ValidationError') {
       return res.status(400).json(failRes(e.toString()))

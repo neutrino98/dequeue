@@ -5,14 +5,14 @@ import { CabinetSchema } from '../models/Cabinet'
 
 const Schema = mongoose.Schema
 
-interface Dequeue extends mongoose.Document {
+interface Queue extends mongoose.Document {
   cabinet: Object,
   user: Object,
   timeOfRecording: any,
   timeOfAppointment: any
 }
 
-const DequeueSchema = new Schema({
+const QueueSchema = new Schema({
   cabinet: {
     type: CabinetSchema,
     required: true
@@ -31,4 +31,4 @@ const DequeueSchema = new Schema({
   }
 })
 
-export default mongoose.model<Dequeue>('Dequeue', DequeueSchema, 'dequeue')
+export default mongoose.model<Queue>('Queue', QueueSchema, 'queue')
