@@ -2,6 +2,7 @@ import * as React from 'react'
 import LoginForm from '../components/LoginForm'
 import * as api from '../api/auth'
 import * as auth from '../utils/auth'
+import { RouteComponentProps } from 'react-router'
 
 interface State {
   email: string,
@@ -10,7 +11,7 @@ interface State {
   loading: boolean
 }
 
-export default class LoginPage extends React.Component<{}, State> {
+export default class LoginPage extends React.Component<RouteComponentProps<{}>, State> {
   state = {
     email: '',
     password: '',
@@ -31,7 +32,8 @@ export default class LoginPage extends React.Component<{}, State> {
     try {
       this.setState({ loading: true })
       const token = await api.login(email, password)
-      auth.setToken(token)
+      auth.setToken(token) 
+      this.props.history.push('/')
     } catch (e) {
       this.setState({ error: e.message })
     }

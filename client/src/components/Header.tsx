@@ -11,11 +11,11 @@ const Header = (props: RouteComponentProps<any>) => {
           Index
         </Menu.Item>
         <Menu.Menu position='right'>
-          <Menu.Item as={NavLink} to='/signin'>
-            Sign In
+          <Menu.Item as={NavLink} to='/login'>
+            Login
           </Menu.Item>
-          <Menu.Item as={NavLink} to='/signup'>
-            Sign Up
+          <Menu.Item as={NavLink} to='/register'>
+            Register
           </Menu.Item>
         </Menu.Menu>
       </Container>

@@ -10,14 +10,14 @@ interface Props {
 }
 
 export default function LoginForm ({ handleSubmit, handleEmail, handlePassword, loading, error }: Props) {
-  return(
+  return (
     <Container>
       <Segment>
         {error && <Segment color={'red'}>{error}</Segment>}
         <Form onSubmit={handleSubmit}>
-          <Form.Input minLength={'6'} maxLength={'100'} onChange={handleEmail} type='email' />
-          <Form.Input minLength={'6'} maxLength={'100'} onChange={handlePassword} type='password'/>
-          <Button type={'submit'} loading={loading} content='Sign up'/>
+          <Form.Input required={true} minLength={'6'} maxLength={'100'} onChange={handleEmail} type='email' />
+          <Form.Input required={true} minLength={'6'} maxLength={'100'} onChange={handlePassword} type='password'/>
+          <Button type={'submit'} loading={loading} content='Login'/>
         </Form>
       </Segment>
     </Container>
