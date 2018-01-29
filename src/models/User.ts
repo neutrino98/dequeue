@@ -22,14 +22,9 @@ export interface User extends mongoose.Document {
 export const UserSchema = new Schema({
   name: {
     type: String,
-<<<<<<< HEAD
     minlength: 2,
     maxlength: 30,
     required: true
-=======
-    min: 2,
-    max: 30
->>>>>>> api
   },
   surname: {
     type: String,
