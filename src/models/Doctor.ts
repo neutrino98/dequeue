@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import { UserSchema, User } from '../models/User'
+import { sha512 } from '../utils/sha512'
 
 const extend = (Schema, obj) => (
   new mongoose.Schema(
@@ -12,7 +13,10 @@ export interface Doctor extends User {
   position: String,
   doctorSpecialty: DoctorSpecialty,
   doctorCategory: DoctorCategory,
-  placeOfWork: String
+  placeOfWork: String,
+  daysOfAppointment: Object,
+  maxTimeOfAppointment: Number,
+  minTimeOfAppointment: Number
 }
 
 enum DoctorSpecialty {
@@ -53,7 +57,24 @@ export const DoctorSchema = extend(UserSchema, {
   placeOfWork: {
     type: String,
     required: true
+  },
+  daysOfAppointment: {
+    type: Array,
+    required: false
+  },
+  maxTimeOfAppointment: {
+    type: Number,
+    required: false
+  },
+  minTimeOfAppointment: {
+    type: Number,
+    required: false
   }
+})
+
+DoctorSchema.pre('save', function (next) {
+  this.password = sha512(this.password).passwordHash
+  next()
 })
 
 export default mongoose.model<Doctor>('Doctor', DoctorSchema, 'doctor')
