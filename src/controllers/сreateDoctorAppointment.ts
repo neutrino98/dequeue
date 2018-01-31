@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
 import { failRes, serverErrRes, successRes } from '../utils/responses'
-import QueueModel from '../models/Queue'
+import { keys } from 'ts-transformer-keys'
+import QueueModel, { Queue } from '../models/Queue'
 import * as _ from 'lodash'
 
 export async function createDoctorAppointment ({ body }: Request, res: Response) {
-  let queue = _.pick(body, ['doctor', 'patient', 'interval', 'interval' ])
+  let queue = _.pick(body, keys<Queue>())
   try {
     const newQueue = await QueueModel.create(queue)
     res.status(201).json(successRes(newQueue))

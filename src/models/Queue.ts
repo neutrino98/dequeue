@@ -3,7 +3,7 @@ import { UserSchema } from './User'
 
 const Schema = mongoose.Schema
 
-interface Queue extends mongoose.Document {
+export interface Queue extends mongoose.Document {
   doctor: Object,
   user: Object,
   time: any
