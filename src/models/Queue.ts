@@ -4,7 +4,7 @@ import { UserSchema } from '../models/User'
 const Schema = mongoose.Schema
 
 interface Queue extends mongoose.Document {
-  cabinet: Object,
+  doctor: Object,
   user: Object,
   timeOfRecording: any,
   timeOfAppointment: any
