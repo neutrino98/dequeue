@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { Menu, Container } from 'semantic-ui-react'
-import { withRouter, RouteComponentProps } from 'react-router'
+import { Container, Menu } from 'semantic-ui-react'
+import { RouteComponentProps, withRouter } from 'react-router'
+import { NavLink } from 'react-router-dom'
 
 const Header = (props: RouteComponentProps<any>) => {
   return (
@@ -10,11 +11,11 @@ const Header = (props: RouteComponentProps<any>) => {
           Index
         </Menu.Item>
         <Menu.Menu position='right'>
-          <Menu.Item>
-            1
+          <Menu.Item as={NavLink} to='/login'>
+            Login
           </Menu.Item>
-          <Menu.Item>
-            2
+          <Menu.Item as={NavLink} to='/register'>
+            Register
           </Menu.Item>
         </Menu.Menu>
       </Container>

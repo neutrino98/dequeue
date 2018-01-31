@@ -29,7 +29,6 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "@types/validator": "^6.3.0",
     "body-parser": "^1.18.2",
     "crypto": "^1.0.1",
     "dotenv": "^4.0.0",
@@ -45,6 +44,7 @@
     "passport-local": "^1.0.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "ts-transformer-keys": "^0.3.0",
     "url": "^0.11.0",
     "validator": "^9.3.0"
   }

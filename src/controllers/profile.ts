@@ -1,10 +1,10 @@
 import UserModel from '../models/User'
 import { Request, Response } from 'express'
-import { successRes, failRes, serverErrRes } from '../utils/responses'
+import { failRes, serverErrRes, successRes } from '../utils/responses'
 
-export async function profileUser ({ params }: Request, res: Response) {
+export async function profile ({ params }: Request, res: Response) {
   try {
-    let user = await UserModel.findOne({ _id: params.id })
+    const user = await UserModel.findOne({ _id: params.id })
     if (!user) {
       res.status(404).json(failRes('No such user'))
     }

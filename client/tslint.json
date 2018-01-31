@@ -2,6 +2,7 @@
     "extends": ["tslint-react", "tslint-config-standard"],
     "rules": {
         "jsx-no-lambda": false,
-        "no-duplicate-imports": false
+        "no-duplicate-imports": false,
+        "jsx-no-multiline-js": false
     }
 }
