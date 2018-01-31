@@ -5,7 +5,6 @@ import * as routes from './routes/index'
 import * as path from 'path'
 import * as bodyParser from 'body-parser'
 import * as morgan from 'morgan'
-import * as passport from './config/passport'
 
 // env vars
 dotenv.config()
