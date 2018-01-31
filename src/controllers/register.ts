@@ -4,8 +4,8 @@ import { failRes, serverErrRes, successRes } from '../utils/responses'
 import { ValidationError } from 'mongoose'
 import * as _ from 'lodash'
 
-export async function registerUser ({ body }: Request, res: Response) {
-  let user = _.pick(body, ['name', 'surname', 'mobile', 'email', 'password', 'role'])
+export async function register ({ body }: Request, res: Response) {
+  const user = _.pick(body, ['name', 'surname', 'mobile', 'email', 'password', 'role'])
   if (user.role === Role.Admin) {
     return res.status(400).json(failRes("You can't sign up as admin"))
   }

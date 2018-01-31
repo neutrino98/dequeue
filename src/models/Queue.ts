@@ -1,7 +1,5 @@
-
 import * as mongoose from 'mongoose'
 import { UserSchema } from '../models/User'
-import { CabinetSchema } from '../models/Cabinet'
 
 const Schema = mongoose.Schema
 
@@ -13,8 +11,8 @@ interface Queue extends mongoose.Document {
 }
 
 const QueueSchema = new Schema({
-  cabinet: {
-    type: CabinetSchema,
+  doctor: {
+    type: UserSchema,
     required: true
   },
   user: {
