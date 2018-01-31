@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Menu, Container } from 'semantic-ui-react'
-import { withRouter, RouteComponentProps } from 'react-router'
+import { Container, Menu } from 'semantic-ui-react'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
 const Header = (props: RouteComponentProps<any>) => {

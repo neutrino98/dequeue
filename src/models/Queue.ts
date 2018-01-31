@@ -3,11 +3,11 @@ import { UserSchema } from './User'
 
 const Schema = mongoose.Schema
 
-export interface Queue extends mongoose.Document {
+interface Queue extends mongoose.Document {
   doctor: Object,
-  user: Object,
-  time: any
-  interval: any,
+  patient: Object,
+  timeOfRecording: any,
+  timeOfAppointment: any,
 }
 
 const QueueSchema = new Schema({
@@ -19,11 +19,11 @@ const QueueSchema = new Schema({
     type: UserSchema,
     required: true
   },
-  time: {
+  timeOfRecording: {
     type: Schema.Types.Date,
     required: true
   },
-  interval: {
+  timeOfAppointment: {
     type: Schema.Types.Date,
     required: true
   }
