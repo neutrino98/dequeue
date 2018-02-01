@@ -1,10 +1,10 @@
 import * as express from 'express'
 import { profile } from '../../controllers/profile'
-import { getDoctors } from '../../controllers/getDoctors'
+import { getUsers } from '../../controllers/getUsers'
 
 const userRouter = express.Router()
 
 userRouter.get('/user/:id', profile)
-userRouter.get('/doctor', getDoctors)
+userRouter.get('/user', getUsers)
 
 export = userRouter
