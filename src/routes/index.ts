@@ -7,6 +7,7 @@ import { client } from '../controllers/client'
 const router = express.Router()
 
 router.use('/api/v1', authRouter, userRouter, queueRouter)
+
 router.get('*', client)
 
 export = router
