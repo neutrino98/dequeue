@@ -3,12 +3,14 @@ import { UserSchema } from './User'
 
 const Schema = mongoose.Schema
 
-interface Queue extends mongoose.Document {
-  doctor: Object,
-  patient: Object,
-  timeOfRecording: any,
-  timeOfAppointment: any,
+export interface Queue extends mongoose.Document {
+  doctor: Object
+  patient: Object
+  timeOfRecording: any
+  timeOfAppointment: any
 }
+
+export const queueKeys = ['doctor', 'patient', 'timeOfRecording', 'timeOfAppointment']
 
 const QueueSchema = new Schema({
   doctor: {

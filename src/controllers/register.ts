@@ -1,12 +1,11 @@
 import { Request, Response } from 'express'
-import UserModel, { Doctor, Role, User } from '../models/User'
+import UserModel, { doctorKeys, Role, userKeys } from '../models/User'
 import { failRes, serverErrRes, successRes } from '../utils/responses'
-import { keys } from 'ts-transformer-keys'
 import { ValidationError } from 'mongoose'
 import * as _ from 'lodash'
 
 export async function register ({ body }: Request, res: Response) {
-  const user = _.pick(body, body['doctorSpecialty'] ? keys<Doctor>() : keys<User>())
+  const user = _.pick(body, body['doctorSpecialty'] ? doctorKeys : userKeys)
   if (user.role === Role.Admin) {
     return res.status(400).json(failRes('You can\'t sign up as admin'))
   }

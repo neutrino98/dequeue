@@ -20,15 +20,19 @@ export interface User extends mongoose.Document {
   role: Role
 }
 
+export const userKeys = ['name', 'surname', 'mobile', 'password', 'email', 'role']
+
 export interface Doctor extends User {
-  activated: Boolean,
-  position: String,
-  doctorSpecialty: DoctorSpecialty,
-  doctorCategory: DoctorCategory,
+  activated: Boolean
+  position: String
+  doctorSpecialty: DoctorSpecialty
+  doctorCategory: DoctorCategory
   placeOfWork: String
   maxTimeOfAppointment: number
   minTimeOfAppointment: number
 }
+
+export const doctorKeys = ['activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'maxTimeOfAppointment', 'minTimeOfAppointment']
 
 enum DoctorSpecialty {
   Pediatrician = 'Педіатр',
