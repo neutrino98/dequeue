@@ -32,7 +32,7 @@ export interface Doctor extends User {
   minTimeOfAppointment: number
 }
 
-export const doctorKeys = ['activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'maxTimeOfAppointment', 'minTimeOfAppointment']
+export const doctorKeys = [...userKeys, 'activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'maxTimeOfAppointment', 'minTimeOfAppointment']
 
 enum DoctorSpecialty {
   Pediatrician = 'Педіатр',
