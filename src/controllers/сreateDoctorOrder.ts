@@ -9,7 +9,7 @@ export async function createDoctorOrder (req: Request, res: Response) {
     return res.status(400).json(failRes('No such doctor!'))
   }
   const queue = {
-    patientId: '5a75d5d665976245ed2af471', // req.user._id,
+    patientId: res.locals.user._id,
     doctorId: req.body.doctorId,
     timeOfRecording: req.body.timeOfRecording,
     timeOfAppointment: req.body.timeOfAppointment
