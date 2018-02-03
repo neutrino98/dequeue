@@ -2,14 +2,16 @@ import * as mongoose from 'mongoose'
 import * as moment from 'moment'
 import * as validator from 'validator'
 import { UserSchema } from './User'
+import { fail } from 'assert'
 
 const Schema = mongoose.Schema
 
 export interface Queue extends mongoose.Document {
   doctorId: string
   patientId: string
-  timeOfRecording: any
-  timeOfAppointment: any
+  from: string
+  to: string
+
 }
 
 export const queueKeys = ['doctorId', 'patientId', 'timeOfRecording', 'timeOfAppointment']
@@ -23,7 +25,7 @@ const QueueSchema = new Schema({
     type: String,
     required: true
   },
-  timeOfRecording: {
+  from: {
     type: String,
     set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
     get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
@@ -31,12 +33,24 @@ const QueueSchema = new Schema({
     required: true,
     default: Date.now
   },
-  timeOfAppointment: {
+  to: {
     type: String,
     set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
     get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
     validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
     required: true
+  },
+  date: {
+    type: String,
+    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
+    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
+    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    required: true
+  },
+  busy: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 
