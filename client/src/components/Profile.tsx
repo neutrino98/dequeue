@@ -1,20 +1,34 @@
 import * as React from 'react'
 import { User } from '../api/auth'
+import { Divider, Grid, Label, Segment } from 'semantic-ui-react'
+// import { Segment } from 'semantic-ui-react'
 
 export const Profile = ({ user }: {user: User | null}) => (
   <div>
     {user &&
-    <div>
-    <h1>ФИО: {user.name} {user.surname}</h1>
-    <h2>Email: {user.email}</h2>
-    <img src={user.imageUrl}/>
-      {user.role === 'Doctor' &&
-      <div>
-        <h1>{user.placeOfWork}</h1>
-        <h1>{user.doctorSpecialty}</h1>
-      </div>
-      }
-    </div>
+    <Segment padded={true}>
+      <Grid stackable={true} columns={4}>
+        <Grid.Column width={4}>
+          <img style={{maxWidth: 'auto', maxHeight: '20vh'}} src={user.imageUrl}/>
+        </Grid.Column>
+        <Grid.Column width={6}>
+          <Label horizontal={true}>ФИО:</Label>
+          {user.name} {user.surname}
+          <Divider verical={true}/>
+          <Label horizontal={true}>Email:</Label>
+          {user.email}
+        </Grid.Column>
+        {user.role === 'Doctor' &&
+        <Grid.Column width={6}>
+          <Label horizontal={true}>Место работы:</Label>
+          {user.placeOfWork}
+          <Divider verical={true}/>
+          <Label horizontal={true}>Специальность:</Label>
+          {user.doctorSpecialty}
+        </Grid.Column>
+        }
+      </Grid>
+    </Segment>
     }
   </div>
 )
