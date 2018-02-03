@@ -3,15 +3,15 @@ import { Button, Dropdown } from 'semantic-ui-react'
 import { SearchMode } from '../containers/SearchPage'
 import Doctors from '../definitions/Doctors'
 import Symptoms from '../definitions/Symptoms'
+import { DropdownProps } from 'semantic-ui-react'
 
 interface Props {
-  onChange: () => void
+  onChange: (e: any, data: DropdownProps) => void
   selectMode: (mode: SearchMode) => void
   mode: SearchMode
 }
 
 const SearchBar = ({ onChange, selectMode, mode }: Props) => {
-  console.log(JSON.stringify(Symptoms.map((doc: any) => {doc.text = doc.value; return doc})))
   return (
     <div className={'SearchBar'}>
       <Dropdown
@@ -19,13 +19,14 @@ const SearchBar = ({ onChange, selectMode, mode }: Props) => {
         placeholder={mode === SearchMode.Doctor ? 'Поиск доктора' : 'Поиск по симптому'}
         options={mode === SearchMode.Doctor ? Doctors : Symptoms}
         onChange={onChange}
+        defaultValue={'Терапевт'}
         search={true}
         type={'text'}
       />
       <Button.Group>
-        <Button onClick={() => selectMode(SearchMode.Doctor)}>Доктор</Button>
+        <Button onClick={() => selectMode(SearchMode.Doctor)} positive={mode === SearchMode.Doctor}>Доктор</Button>
         <Button.Or />
-        <Button onClick={() => selectMode(SearchMode.Symptom)}>Симптом</Button>
+        <Button onClick={() => selectMode(SearchMode.Symptom)} positive={mode === SearchMode.Symptom}>Симптом</Button>
       </Button.Group>
     </div>
   )

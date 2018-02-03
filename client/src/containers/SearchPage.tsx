@@ -1,6 +1,10 @@
 import * as React from 'react'
 import { Container } from 'semantic-ui-react'
 import SearchBar from '../components/SearchBar'
+import * as doctorsApi from '../api/doctors'
+import { Doctor } from '../definitions/User'
+import { DropdownProps } from 'semantic-ui-react'
+import SearchResults from '../components/SearchResults'
 
 export enum SearchMode {
   Doctor, Symptom
@@ -8,15 +12,30 @@ export enum SearchMode {
 
 interface State {
   mode: SearchMode
+  doctors: Doctor[] | null
+  cursor: null | number
 }
 
 class SearchPage extends React.Component<{}, State> {
   state = {
-    mode: SearchMode.Symptom
+    mode: SearchMode.Doctor,
+    cursor: null,
+    doctors: null
   }
 
-  onChange = () => {
-    console.log('change')
+  componentDidMount () {
+    doctorsApi.search('Терапевт').then(response => {
+      this.setState({ cursor: response.cursor, doctors: response.doctors })
+    })
+  }
+
+  onChange = (e: any, data: DropdownProps) => {
+    this.setState({ doctors: null })
+    if (this.state.mode === SearchMode.Doctor) {
+      doctorsApi.search(data.value as string).then(response => {
+        this.setState({ cursor: response.cursor, doctors: response.doctors })
+      })
+    }
   }
 
   selectMode = (mode: SearchMode) => {
@@ -25,7 +44,7 @@ class SearchPage extends React.Component<{}, State> {
 
   render () {
     const { onChange, selectMode } = this
-    const { mode } = this.state
+    const { mode, doctors } = this.state
     return (
       <Container>
         <SearchBar
@@ -33,6 +52,7 @@ class SearchPage extends React.Component<{}, State> {
           selectMode={selectMode}
           mode={mode}
         />
+        <SearchResults doctors={doctors}/>
       </Container>
     )
   }
