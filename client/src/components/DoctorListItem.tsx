@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Doctor } from '../definitions/User'
-import { Segment, Grid, Image } from 'semantic-ui-react'
+import { Grid, Image, Segment } from 'semantic-ui-react'
 
 interface Props {
   doctor: Doctor

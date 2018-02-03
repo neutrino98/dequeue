@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { Container } from 'semantic-ui-react'
+import { Container, DropdownProps } from 'semantic-ui-react'
 import SearchBar from '../components/SearchBar'
 import * as doctorsApi from '../api/doctors'
 import { Doctor } from '../definitions/User'
-import { DropdownProps } from 'semantic-ui-react'
 import SearchResults from '../components/SearchResults'
 
 export enum SearchMode {

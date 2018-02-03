@@ -1,15 +1,19 @@
 import * as React from 'react'
-import {User} from '../api/auth'
+import { User } from '../api/auth'
 
-export const Profile = (props: User) => (
+export const Profile = ({ user }: {user: User | null}) => (
   <div>
-    <h1>ФИО: {props.name} {props.surname}</h1>
-    <h2>Email: {props.email}</h2>
-    <img src={props.imageUrl}/>
-    {props.role === 'Doctor' &&
+    {user &&
     <div>
-      <h1>{props.placeOfWork}</h1>
-      <h1>{props.doctorSpecialty}</h1>
+    <h1>ФИО: {user.name} {user.surname}</h1>
+    <h2>Email: {user.email}</h2>
+    <img src={user.imageUrl}/>
+      {user.role === 'Doctor' &&
+      <div>
+        <h1>{user.placeOfWork}</h1>
+        <h1>{user.doctorSpecialty}</h1>
+      </div>
+      }
     </div>
     }
   </div>

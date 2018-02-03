@@ -3,6 +3,9 @@ export interface LoginCredentials {
   password: string
 }
 
+export type Gender = 'male' | 'female'
+export type Role = 'Doctor' | 'Student'
+
 interface Response {
   success: boolean,
   message: string | undefined
@@ -14,9 +17,9 @@ export interface User {
   name: string
   surname: string
   mobile: string
-  gender: 'male' | 'female'
+  gender: Gender
   yearOfBirth: number
-  role: 'Doctor' | 'Student'
+  role: Role
   imageUrl: string
   doctorSpecialty: string | null
   placeOfWork: string | null
@@ -26,9 +29,9 @@ export interface RegistrationCredentials extends LoginCredentials {
   name: string
   surname: string
   mobile: string
-  gender: 'male' | 'female'
+  gender: Gender
   yearOfBirth: number
-  role: 'Student' | 'Doctor'
+  role: Role
   imageUrl: string
 }
 
@@ -37,7 +40,7 @@ export interface DoctorCredentials extends RegistrationCredentials {
   placeOfWork: string
 }
 
-export async function login (credentials: LoginCredentials): Promise<{ token: string, user: { id: string } }> {
+export async function login (credentials: LoginCredentials): Promise<{ token: string, user: { _id: string } }> {
   const response = await fetch('/api/v1/login', {
     method: 'post',
     body: JSON.stringify(credentials),

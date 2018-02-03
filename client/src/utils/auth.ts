@@ -6,10 +6,10 @@ export function setId (id: string): void {
   localStorage.setItem('id', id)
 }
 
-export function getId (id: string): void {
-  localStorage.getItem('id')
+export function getId (): string | null {
+  return localStorage.getItem('id')
 }
 
-export function getToken (token: string): string | null {
+export function getToken (): string | null {
   return localStorage.getItem('token')
 }

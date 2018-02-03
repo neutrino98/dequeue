@@ -1,37 +1,28 @@
 import * as React from 'react'
 import { User } from '../api/auth'
 import { Profile } from '../components/Profile'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 
-interface State extends User {
-  loading: boolean
-  error: string | null
+interface State {
+  user: User | null
 }
 
-export default class ProfilePage extends React.Component<{}, State> {
+export default withRouter(class ProfilePage extends React.Component<RouteComponentProps<any>, State> {
 
   state = {
-    error: null,
-    loading: true,
-    email: '',
-    name: '',
-    surname: '',
-    mobile: '',
-    gender: 'male',
-    yearOfBirth: 0,
-    role: 'Student',
-    imageUrl: '',
-    doctorSpecialty: null,
-    placeOfWork: null
+    user: null
   }
 
   async componentDidMount () {
-    const user: User = await(await fetch('/profile')).json()
-    this.setState({...user})
+    console.log(this.props.match.params.id)
+    const user: User = (await(await fetch('/api/v1/users/' + this.props.match.params.id)).json()).data
+    this.setState({ user })
   }
 
-  render() {
+  render () {
+    console.log('Hello world')
     return (
-      <Profile {...this.state}/>
+      <Profile user={this.state.user}/>
     )
   }
-}
+})
