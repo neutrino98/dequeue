@@ -10,15 +10,15 @@ export interface Queue extends mongoose.Document {
   timeOfAppointment: any
 }
 
-export const queueKeys = ['doctor', 'patient', 'timeOfRecording', 'timeOfAppointment']
+export const queueKeys = ['doctorId', 'patientId', 'timeOfRecording', 'timeOfAppointment']
 
 const QueueSchema = new Schema({
-  doctor: {
-    type: UserSchema,
+  doctorId: {
+    type: Schema.Types.ObjectId,
     required: true
   },
-  patient: {
-    type: UserSchema,
+  patientId: {
+    type: Schema.Types.ObjectId,
     required: true
   },
   timeOfRecording: {
