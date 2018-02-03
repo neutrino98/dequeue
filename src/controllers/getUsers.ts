@@ -17,6 +17,9 @@ export async function getUsers ({ query }: Request, res: Response) {
   let cursor = prevCursor >= 0 && prevCursor < pagesCount - 1 ? prevCursor + 1 : null
   if (prevCursor <= pagesCount - 1 || prevCursor >= 0) {
     const doctors = (await searchModels(UserModel, findOptions, prevCursor, paginationCount)).models
+    if (doctors.length === 0) {
+      cursor = null
+    }
     res.json(successRes({ doctors, cursor }))
   } else {
     res.json({ cursor })

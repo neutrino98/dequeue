@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose'
 import * as validator from 'validator'
 import { sha512 } from '../utils/sha512'
+import { enumValues } from '../utils/enumUtils'
 
 const Schema = mongoose.Schema
 
@@ -34,7 +35,7 @@ export interface Doctor extends User {
   minTimeOfAppointment: number
 }
 
-export const doctorKeys = [...userKeys, 'activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'maxTimeOfAppointment', 'minTimeOfAppointment']
+export const doctorKeys = [...userKeys, 'activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'yearOfBirth', 'gender']
 
 export const idDoctorSpecialty = {
   1: 'Кардиолог',
