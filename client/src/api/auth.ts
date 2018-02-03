@@ -8,7 +8,7 @@ export interface RegistrationCredentials extends LoginCredentials {
   surname: string
   mobile: string
   role: string
-  imageName: string
+  imageUrl: string
 }
 
 export async function login (credentials: LoginCredentials): Promise<string> {
@@ -24,6 +24,7 @@ export async function login (credentials: LoginCredentials): Promise<string> {
 }
 
 export async function register (credentials: RegistrationCredentials): Promise<boolean> {
+  console.log(JSON.stringify(credentials))
   const response = await fetch('/api/v1/register', {
     method: 'post',
     body: JSON.stringify(credentials),

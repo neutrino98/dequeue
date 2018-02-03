@@ -13,6 +13,9 @@ interface State extends RegistrationCredentials {
 }
 
 export default class RegistrationPage extends React.Component<RouteComponentProps<{}>, State> {
+
+  defaultImageUrl: string = 'http://res.cloudinary.com/dtuhcdmvr/image/upload/v1517662645/defaultAvatar.png'
+
   state = {
     name: '',
     surname: '',
@@ -21,7 +24,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
     password: '',
     role: '',
     error: null,
-    imageName: 'defaultAvatar.png',
+    imageUrl: this.defaultImageUrl,
     file: null,
     loading: false
   }
@@ -37,8 +40,9 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
   handleSubmit = async () => {
     try {
       this.setState({ loading: true })
-      const imageName = await this.uploadImage(this.state.file)
-      this.setState({ imageName: imageName ? imageName : this.state.imageName })
+      const imageUrl = await this.uploadImage(this.state.file)
+      this.setState({ imageUrl: imageUrl ? imageUrl : this.defaultImageUrl })
+      console.log(this.state)
       const success = await api.register(this.state)
       if (success) {
         this.props.history.push('/login')
@@ -65,7 +69,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
       body: imgFormData
     })).json()
 
-    return imgResponse.public_id + '.' + imgResponse.format
+    return imgResponse.url
   }
 
   handleFile = async (files: FileList | null) => {
@@ -75,13 +79,12 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
   }
 
   render () {
-    const { error, loading, imageName } = this.state
+    const { error, loading } = this.state
     return (
         <RegistrationForm
             handleInput={this.handleInput}
             handleSubmit={this.handleSubmit}
             handleFile={this.handleFile}
-            imageName={imageName}
             error={error}
             loading={loading}
         />

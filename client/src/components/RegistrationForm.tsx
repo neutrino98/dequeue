@@ -5,7 +5,6 @@ interface Props {
   handleSubmit: () => void
   handleInput: (e: {}) => void
   handleFile: (files: FileList | null) => void
-  imageName: string
   error: null | string
   loading: boolean
 }
@@ -27,7 +26,7 @@ export default function RegistrationForm ({ handleSubmit, handleInput, handleFil
                 <Form.Input name='surname' placeholder='Surname' required={true} minLength={'2'} maxLength={'100'} onChange={handleInput} type='lastname' />
                 <Form.Input name='mobile' placeholder='Mobile' required={true} minLength={'8'} maxLength={'12'} onChange={handleInput} type='tel' />
                 <Form.Input name='role' placeholder='Role' required={true} minLength={'4'} maxLength={'15'} onChange={handleInput} type='text' />
-                <input name='avatar' accept='image/*' required={true} onChange={e => handleFile(e.target.files)} type='file'/>
+                <input name='imageUrl' accept='image/*' required={true} onChange={e => handleFile(e.target.files)} type='file'/>
                 <Button type={'submit'} loading={loading} content='Register'/>
             </Form>
         </Segment>
