@@ -1,8 +1,5 @@
 import * as mongoose from 'mongoose'
 import * as moment from 'moment'
-import * as validator from 'validator'
-import { UserSchema } from './User'
-import { fail } from 'assert'
 
 const Schema = mongoose.Schema
 
@@ -11,7 +8,6 @@ export interface Queue extends mongoose.Document {
   patientId: string
   from: string
   to: string
-
 }
 
 export const queueKeys = ['doctorId', 'patientId', 'timeOfRecording', 'timeOfAppointment']
