@@ -18,6 +18,8 @@ export interface User extends mongoose.Document {
   password: string
   email: string
   role: Role
+  gender: string
+  yearOfBirth: number
 }
 
 export const userKeys = ['name', 'surname', 'mobile', 'password', 'email', 'role']
