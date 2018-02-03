@@ -75,7 +75,7 @@ export default withRouter(class RegistrationPage extends React.Component<RouteCo
     imgFormData.append('file', file)
     imgFormData.append('upload_preset', 'sfhd0g0o')
 
-    const imgResponse = await (await fetch('https://api.cloudinary.com/v1_ga1/dtuhcdmvr/image/upload', {
+    const imgResponse = await (await fetch('https://api.cloudinary.com/v1_1/dtuhcdmvr/image/upload', {
       method: 'POST',
       body: imgFormData
     })).json()
