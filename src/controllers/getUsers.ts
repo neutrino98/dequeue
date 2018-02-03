@@ -12,7 +12,6 @@ export async function getUsers ({ query }: Request, res: Response) {
   if (findOptions.surname !== undefined) {
     findOptions.surname = { $regex: findOptions.surname, $options : 'i' }
   }
-  console.log(findOptions)
   const pagesCount = await UserModel.find().count() / paginationCount
 
   let cursor = prevCursor >= 0 && prevCursor < pagesCount - 1 ? prevCursor + 1 : null
