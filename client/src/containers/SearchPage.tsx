@@ -13,29 +13,25 @@ export enum SearchMode {
 interface State {
   mode: SearchMode
   doctors: Doctor[] | null
-  cursor: null | number
 }
 
 class SearchPage extends React.Component<{}, State> {
   state = {
     mode: SearchMode.Doctor,
-    cursor: null,
     doctors: null
   }
 
   componentDidMount () {
-    doctorsApi.search('Терапевт').then(response => {
-      this.setState({ cursor: response.cursor, doctors: response.doctors })
+    doctorsApi.search('Терапевт', SearchMode.Doctor).then(doctors => {
+      this.setState({ doctors })
     })
   }
 
   onChange = (e: any, data: DropdownProps) => {
     this.setState({ doctors: null })
-    if (this.state.mode === SearchMode.Doctor) {
-      doctorsApi.search(data.value as string).then(response => {
-        this.setState({ cursor: response.cursor, doctors: response.doctors })
-      })
-    }
+    doctorsApi.search(data.value as string, this.state.mode).then(doctors => {
+      this.setState({ doctors })
+    })
   }
 
   selectMode = (mode: SearchMode) => {
