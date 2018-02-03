@@ -54,7 +54,7 @@ export default withRouter(class RegistrationPage extends React.Component<RouteCo
       this.setState({ loading: true })
       const imageUrl = await this.uploadImage(this.state.file)
       this.setState({ imageUrl: imageUrl ? imageUrl : this.defaultImageUrl })
-      const success = await this.state.role === 'Student' ? api.register(this.state) : api.registerDoctor(this.state)
+      const success = await (this.state.role === 'Student' ? api.register(this.state) : api.registerDoctor(this.state))
       if (success) {
         this.props.history.push('/login')
       } else {
