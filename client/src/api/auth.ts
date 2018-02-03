@@ -9,13 +9,26 @@ interface Response {
   data: any
 }
 
+export interface User {
+  email: string
+  name: string
+  surname: string
+  mobile: string
+  gender: 'male' | 'female'
+  yearOfBirth: number
+  role: 'Doctor' | 'Student'
+  imageUrl: string
+  doctorSpecialty: string | null
+  placeOfWork: string | null
+}
+
 export interface RegistrationCredentials extends LoginCredentials {
   name: string
   surname: string
   mobile: string
-  gender: string
+  gender: 'male' | 'female'
   yearOfBirth: number
-  role: string
+  role: 'Student' | 'Doctor'
   imageUrl: string
 }
 
@@ -24,7 +37,7 @@ export interface DoctorCredentials extends RegistrationCredentials {
   placeOfWork: string
 }
 
-export async function login (credentials: LoginCredentials): Promise<string> {
+export async function login (credentials: LoginCredentials): Promise<{ token: string, user: { id: string } }> {
   const response = await fetch('/api/v1/login', {
     method: 'post',
     body: JSON.stringify(credentials),
@@ -33,7 +46,7 @@ export async function login (credentials: LoginCredentials): Promise<string> {
   if (response.status >= 500) throw new Error('Server error')
   const json = await response.json()
   if (!json.success) throw new Error(json.message)
-  return json.data.token
+  return json.data
 }
 
 export async function register (credentials: RegistrationCredentials): Promise<Response> {

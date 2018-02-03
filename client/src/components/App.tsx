@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router'
 import LandingPage from '../components/LandingPage'
 import LoginPage from '../containers/LoginPage'
 import RegistrationPage from '../containers/RegistrationPage'
+import ProfilePage from '../containers/ProfilePage'
 
 // class AuthRoute extends Route {
 //   render () {
@@ -19,6 +20,7 @@ const App = () => (
       <Route exact={true} component={LandingPage} path='/'/>
       <Route exact={true} component={RegistrationPage} path='/register'/>
       <Route exact={true} component={LoginPage} path='/login'/>
+      <Route exact={true} component={ProfilePage} path='/profile'/>
     </Switch>
   </Layout>
 )
