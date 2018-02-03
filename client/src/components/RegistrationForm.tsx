@@ -61,55 +61,53 @@ interface Props {
   loading: boolean
 }
 
-export default function RegistrationForm ({ handleSubmit, handleInput, handleFile, handleRole, handleDropdown, loading, role, error }: Props) {
+export default function RegistrationForm({ handleSubmit, handleInput, handleFile, handleRole, handleDropdown, loading, role, error }: Props) {
   return (
     <Container>
       <Segment>
         {error && <Segment color={'red'}>{error}</Segment>}
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-          <Grid centered columns={2}>
-            <Grid.Column>
+            <Grid centered columns={2}>
+              <Grid.Column>
                 <Button.Group>
                   <Button positive={role === 'Student'} onClick={e => {
                     e.preventDefault()
                     handleRole('Student')
-                  }}>Student</Button>
-                  <Button.Or/>
+                  }}>Пользователь</Button>
+                  <Button.Or />
                   <Button positive={role === 'Doctor'} onClick={e => {
                     e.preventDefault()
                     handleRole('Doctor')
-                  }}>Doctor</Button>
+                  }}>Доктор</Button>
                 </Button.Group>
-            </Grid.Column>
-          </Grid>
+              </Grid.Column>
+            </Grid>
           </Form.Group>
           <Form.Input name='email' placeholder='Email' required={true} minLength={'6'} maxLength={'100'}
-                      onChange={handleInput} type='email'/>
-          <Form.Input name='password' placeholder='Password' required={true} minLength={'6'} maxLength={'100'}
-                      onChange={handleInput} type='password'/>
-          <Form.Input name='name' placeholder='Name' required={true} minLength={'2'} maxLength={'100'}
-                      onChange={handleInput} type='firstname'/>
-          <Form.Input name='surname' placeholder='Surname' required={true} minLength={'2'} maxLength={'100'}
-                      onChange={handleInput} type='lastname'/>
-          <Form.Input name='mobile' placeholder='Mobile' required={true} minLength={'8'} maxLength={'12'}
-                      onChange={handleInput} type='tel'/>
-          <Form.Input name='yearOfBirth' placeholder='Year Of Birth' required={true} minLength={'4'} maxLength={'15'}
-                      onChange={handleInput} type='number'/>
-          <Form.Dropdown name='gender' placeholder='Gender' fluid={true} selection={true} options={genders.map((e, i) => ({ key: i, value: e, text: e }))} onChange={handleDropdown}/>
+            onChange={handleInput} type='email' />
+          <Form.Input name='password' placeholder='Пароль' required={true} minLength={'6'} maxLength={'100'}
+            onChange={handleInput} type='password' />
+          <Form.Input name='name' placeholder='Имя' required={true} minLength={'2'} maxLength={'100'}
+            onChange={handleInput} type='firstname' />
+          <Form.Input name='surname' placeholder='Фамилия' required={true} minLength={'2'} maxLength={'100'}
+            onChange={handleInput} type='lastname' />
+          <Form.Input name='mobile' placeholder='Телефон' required={true} minLength={'8'} maxLength={'12'}
+            onChange={handleInput} type='tel' />
+          <Form.Input name='yearOfBirth' placeholder='Год рождения' required={true} minLength={'4'} maxLength={'15'}
+            onChange={handleInput} type='number' />
+          <Form.Dropdown name='gender' placeholder='Пол' fluid={true} selection={true} options={genders.map((e, i) => ({ key: i, value: e, text: e }))} onChange={handleDropdown} />
           {role === 'Doctor' &&
             <div>
-              <Form.Input name='position' placeholder='Position' required={true} onChange={handleInput} type='text'/>
-              <Form.Input name='placeOfWork' placeholder='Place Of Work' required={true} onChange={(e) => console.log('E: ' + e)} type='text'/>
-              <Form.Dropdown name='doctorSpecialty' placeholder='Doctor Specialty' fluid={true} search={true} selection={true} options={Object.keys(idDoctorSpecialty).map((id, i) => ({ key: i, value: idDoctorSpecialty[id], text: idDoctorSpecialty[id] }))} onChange={handleDropdown}/>
-              <Form.Input name='doctorCategory' placeholder='Doctor Category' required={true} onChange={handleInput} type='text'/>
+              <Form.Input name='placeOfWork' placeholder='Место работы' required={true} onChange={handleInput} type='text' />
+              <Form.Dropdown name='doctorSpecialty' placeholder='Специальность' fluid={true} search={true} selection={true} options={Object.keys(idDoctorSpecialty).map((id, i) => ({ key: i, value: idDoctorSpecialty[id], text: idDoctorSpecialty[id] }))} onChange={handleDropdown} />
             </div>
           }
           <Form.Group>
             <input name='imageUrl' accept='image/*' onChange={e => handleFile(e.target.files)}
-                 type='file'/>
+              type='file' />
           </Form.Group>
-          <Form.Button type={'submit'} loading={loading} content='Register'/>
+          <Form.Button type={'submit'} loading={loading} content='Зарегистрироваться' />
         </Form>
       </Segment>
     </Container>

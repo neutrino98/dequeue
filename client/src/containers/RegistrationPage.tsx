@@ -4,6 +4,7 @@ import { DoctorCredentials } from '../api/auth'
 import { RouteComponentProps } from 'react-router'
 import RegistrationForm from '../components/RegistrationForm'
 import { DropdownProps } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 
 interface State extends DoctorCredentials {
   file: File | null
@@ -12,9 +13,9 @@ interface State extends DoctorCredentials {
   loading: boolean
 }
 
-export default class RegistrationPage extends React.Component<RouteComponentProps<{}>, State> {
+export default withRouter(class RegistrationPage extends React.Component<RouteComponentProps<{}>, State> {
 
-  defaultImageUrl: string = 'http://res.cloudinary.com/dtuhcdmvr/image/upload/v1517662645/defaultAvatar.png'
+  defaultImageUrl = 'http://res.cloudinary.com/dtuhcdmvr/image/upload/v1517662645/defaultAvatar.png'
 
   state = {
     name: '',
@@ -26,9 +27,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
     imageUrl: this.defaultImageUrl,
     file: null,
     loading: false,
-    position: '',
     doctorSpecialty: '',
-    doctorCategory: '',
     placeOfWork: '',
     gender: 'male',
     yearOfBirth: 1990,
@@ -36,7 +35,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
   }
 
   userInputs = ['name', 'surname', 'mobile', 'email', 'password', 'role', 'gender', 'yearOfBirth']
-  doctorInputs = [...this.userInputs, 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork']
+  doctorInputs = [...this.userInputs, 'doctorSpecialty', 'placeOfWork']
   validNames = (role: string): String[] => role === 'Student' ? this.userInputs : this.doctorInputs
 
   handleInput = ({currentTarget: {name, value}}: any) => {
@@ -47,7 +46,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
   }
 
   handleDropdown = (e: any, data: DropdownProps) => {
-    this.setState({[e.currentTarget.name]: data.value})
+    this.setState({[data.name]: data.value})
   }
 
   handleSubmit = async () => {
@@ -76,7 +75,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
     imgFormData.append('file', file)
     imgFormData.append('upload_preset', 'sfhd0g0o')
 
-    const imgResponse = await (await fetch('https://api.cloudinary.com/v1_1/dtuhcdmvr/image/upload', {
+    const imgResponse = await (await fetch('https://api.cloudinary.com/v1_ga1/dtuhcdmvr/image/upload', {
       method: 'POST',
       body: imgFormData
     })).json()
@@ -109,4 +108,4 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
         />
     )
   }
-}
+})
