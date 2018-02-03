@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import * as validator from 'validator'
+import * as moment from 'moment'
 import { sha512 } from '../utils/sha512'
 import { enumValues } from '../utils/enumUtils'
 
@@ -30,7 +31,8 @@ export interface User extends mongoose.Document {
   role: Role
   imageUrl: string
   gender: string
-  yearOfBirth: number
+  yearOfBirth: number,
+
 }
 
 export const userKeys = ['name', 'imageUrl', 'surname', 'mobile', 'password', 'email', 'role', 'gender', 'yearOfBirth']
@@ -38,11 +40,13 @@ export const userKeys = ['name', 'imageUrl', 'surname', 'mobile', 'password', 'e
 export interface Doctor extends User {
   doctorSpecialty: string
   placeOfWork: string
-  sessionTime: string
+  sessionTime: number
   availableDays: Day
+  startTime: string
+  finishTime: string
 }
 
-export const doctorKeys = [...userKeys, 'doctorSpecialty', 'placeOfWork']
+export const doctorKeys = [...userKeys, 'doctorSpecialty', 'placeOfWork', 'startTime', 'finishTime']
 
 export const idDoctorSpecialty = {
   1: 'Кардиолог',
@@ -234,8 +238,20 @@ export const UserSchema = new Schema({
     type: Number,
     required: true
   },
-  imageURL: {
-    type: String
+  startTime: {
+    type: String,
+    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
+    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
+    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    required: true,
+    default: Date.now
+  },
+  finishTime: {
+    type: String,
+    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
+    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
+    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    required: true
   }
 })
 

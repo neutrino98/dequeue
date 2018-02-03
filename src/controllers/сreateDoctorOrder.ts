@@ -5,7 +5,7 @@ import UserModel, { Role } from '../models/User'
 import * as moment from 'moment'
 
 export async function createDoctorOrder ({ body }: Request, res: Response) {
-  const doctor = await UserModel.find({ doctorId: body.doctorId, role: Role.Doctor })
+  const doctor = (await UserModel.findOne({ doctorId: body.doctorId, role: Role.Doctor }))[0]
   if (!doctor) {
     return res.status(400).json(failRes('No such doctor!'))
   }
@@ -16,6 +16,10 @@ export async function createDoctorOrder ({ body }: Request, res: Response) {
     to: moment(body.from).add(doctor.sessionTime, 'mins'),
     busy: true
   }
+  if (moment(doctor.startTime).isBefore(queue.from) || moment(doctor.finishTime).isAfter(queue.from)) {
+    return res.status(400).json(failRes('Time is not on range'))
+  }
+
   try {
     const newQueue = await QueueModel.create(queue)
     res.status(201).json(successRes(newQueue))
