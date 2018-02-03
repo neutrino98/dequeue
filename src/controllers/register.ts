@@ -6,6 +6,7 @@ import * as _ from 'lodash'
 
 export async function register ({ body }: Request, res: Response) {
   const user = _.pick(body, body['doctorSpecialty'] ? doctorKeys : userKeys)
+  console.log('User: ', user)
   if (user.role === Role.Admin) {
     return res.status(400).json(failRes('You can\'t sign up as admin'))
   }
