@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { Doctor } from '../definitions/User'
-import { Segment, Grid, Image, Button } from 'semantic-ui-react'
-import { withRouter, RouteComponentProps } from 'react-router'
-import { Grid, Image, Segment } from 'semantic-ui-react'
+import { Button, Grid, Image, Segment } from 'semantic-ui-react'
+import { RouteComponentProps, withRouter } from 'react-router'
 
 interface Props extends RouteComponentProps<any> {
   doctor: Doctor

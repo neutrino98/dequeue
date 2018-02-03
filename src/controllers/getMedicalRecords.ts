@@ -4,6 +4,7 @@ import QueueModel from '../models/Queue'
 
 export async function userRecords (res: Response) {
   try {
+    console.log(res.locals)
     const queueries = await QueueModel.find({ patient_id: res.locals.user._id })
     if (!queueries) {
       return res.status(404).json(failRes('No records!'))

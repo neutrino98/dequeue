@@ -3,7 +3,7 @@ import { User } from '../api/auth'
 import { Divider, Grid, Label, Segment } from 'semantic-ui-react'
 // import { Segment } from 'semantic-ui-react'
 
-export const Profile = ({ user }: {user: User | null}) => (
+export const Profile = ({ user }: { user: User | null }) => (
   <div>
     {user &&
     <Segment padded={true}>

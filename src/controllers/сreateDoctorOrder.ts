@@ -3,7 +3,6 @@ import { failRes, serverErrRes, successRes } from '../utils/responses'
 import QueueModel from '../models/Queue'
 import UserModel, { Role } from '../models/User'
 import * as moment from 'moment'
-import * as _ from 'lodash'
 
 export async function createDoctorOrder ({ body }: Request, res: Response) {
   const doctor = await UserModel.find({ doctorId: body.doctorId, role: Role.Doctor })
