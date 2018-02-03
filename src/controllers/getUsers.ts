@@ -1,27 +1,23 @@
 import { Request, Response } from 'express'
-import { successRes } from '../utils/responses'
-import { searchModels } from '../utils/searchModels'
-import UserModel from '../models/User'
+import { successRes, serverErrRes } from '../utils/responses'
+import { diagnosis } from '../services/apiMedic'
+import User, { idDoctorSpecialty } from '../models/User'
 import * as _ from 'lodash'
 
 const paginationCount = 3
 
-export async function getUsers ({ query }: Request, res: Response) {
-  const prevCursor = ~~query.cursor || 0
-  let findOptions = _.pick(query, ['role', 'doctorSpecialty', 'placeOfWork', 'surname'])
-  if (findOptions.surname !== undefined) {
-    findOptions.surname = { $regex: findOptions.surname, $options : 'i' }
+export async function getUsers (req: Request, res: Response) {
+  const { query: { doctorSpecialty, symptom } } = req
+  if (doctorSpecialty) {
+    const doctors = await User.find({ where: { doctorSpecialty } })
+    return res.status(200).json(successRes({ doctors }))
+  } else if (symptom) {
+    const diagnosisResult = await diagnosis(symptom, res.locals.user)
+    const specialties = diagnosisResult.Specialisation.map(specialist => idDoctorSpecialty[specialist.ID])
+    const doctors = await User.find({
+      $or: specialties.map(specialty => ({ doctorSpecialty: specialty }))
+    })
+    return res.status(200).send(successRes({ doctors }))
   }
-  const pagesCount = await UserModel.find().count() / paginationCount
-
-  let cursor = prevCursor >= 0 && prevCursor < pagesCount - 1 ? prevCursor + 1 : null
-  if (prevCursor <= pagesCount - 1 || prevCursor >= 0) {
-    const doctors = (await searchModels(UserModel, findOptions, prevCursor, paginationCount)).models
-    if (doctors.length === 0) {
-      cursor = null
-    }
-    res.json(successRes({ doctors, cursor }))
-  } else {
-    res.json({ cursor })
-  }
+  res.status(500).json(serverErrRes())
 }
