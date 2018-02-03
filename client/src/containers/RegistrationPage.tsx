@@ -54,11 +54,12 @@ export default withRouter(class RegistrationPage extends React.Component<RouteCo
       this.setState({ loading: true })
       const imageUrl = await this.uploadImage(this.state.file)
       this.setState({ imageUrl: imageUrl ? imageUrl : this.defaultImageUrl })
-      const success = await (this.state.role === 'Student' ? api.register(this.state) : api.registerDoctor(this.state))
-      if (success) {
+      const result = await (this.state.role === 'Student' ? api.register(this.state) : api.registerDoctor(this.state))
+      console.log('Result: ', result)
+      if (result.success) {
         this.props.history.push('/login')
       } else {
-        this.setState({ error: 'An error occured' })
+        this.setState({ error: result.message ? result.message : 'An error occured'})
       }
     } catch (e) {
       this.setState({ error: e.message })
