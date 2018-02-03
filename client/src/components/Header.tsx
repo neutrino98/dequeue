@@ -11,6 +11,9 @@ const Header = (props: RouteComponentProps<any>) => {
           Index
         </Menu.Item>
         <Menu.Menu position='right'>
+          <Menu.Item as={NavLink} to='/profile'>
+            Профиль
+          </Menu.Item>
           <Menu.Item as={NavLink} to='/login'>
             Войти
           </Menu.Item>

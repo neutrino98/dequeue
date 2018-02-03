@@ -1,5 +1,4 @@
 import * as CryptoJS from 'crypto-js'
-import { User } from '../models/User'
 import * as rp from 'request-promise'
 
 export async function getToken (): Promise<string> {
