@@ -3,6 +3,7 @@ import * as api from '../api/auth'
 import { DoctorCredentials } from '../api/auth'
 import { RouteComponentProps } from 'react-router'
 import RegistrationForm from '../components/RegistrationForm'
+import { DropdownProps } from 'semantic-ui-react'
 
 interface State extends DoctorCredentials {
   file: File | null
@@ -38,11 +39,15 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
   doctorInputs = [...this.userInputs, 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork']
   validNames = (role: string): String[] => role === 'Student' ? this.userInputs : this.doctorInputs
 
-  handleInput = ({ currentTarget: { value, name } }: any) => {
+  handleInput = ({currentTarget: {name, value}}: any) => {
     if (!this.validNames(this.state.role).includes(name)) {
       throw new Error(`Not valid input name - ${name}`)
     }
     this.setState({ [name]: value })
+  }
+
+  handleDropdown = (e: any, data: DropdownProps) => {
+    this.setState({[e.currentTarget.name]: data.value})
   }
 
   handleSubmit = async () => {
@@ -96,6 +101,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
             handleInput={this.handleInput}
             handleSubmit={this.handleSubmit}
             handleFile={this.handleFile}
+            handleDropdown={this.handleDropdown}
             error={error}
             loading={loading}
             role={role}

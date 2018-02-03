@@ -172,7 +172,8 @@ export const UserSchema = new Schema({
     required: true
   },
   imageUrl: {
-    type: String
+    type: String,
+    default: 'http://res.cloudinary.com/dtuhcdmvr/image/upload/v1517662645/defaultAvatar.png'
   },
   password: {
     type: String,
