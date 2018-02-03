@@ -30,9 +30,9 @@ export interface DiagnosisResponse {
   }[]
 }
 
-export async function diagnosis (symptoms: number[], user: any): Promise<DiagnosisResponse> {
+export async function diagnosis (symptoms: string, user: any): Promise<DiagnosisResponse> {
   const token = await getToken()
-  const uri = `https://sandbox-healthservice.priaid.ch/diagnosis?token=${token}&language=ru-ru&symptoms=[${symptoms.toString()}]&gender=${user.gender}&year_of_birth=${user.yearOfBirth}`
+  const uri = `https://sandbox-healthservice.priaid.ch/diagnosis?token=${token}&language=ru-ru&symptoms=[${symptoms}]&gender=${user.gender}&year_of_birth=${user.yearOfBirth}`
   const response = await rp(uri)
   return JSON.parse(response)
 }
