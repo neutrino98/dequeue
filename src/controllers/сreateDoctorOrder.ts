@@ -1,15 +1,15 @@
 import { Request, Response } from 'express'
 import { failRes, serverErrRes, successRes } from '../utils/responses'
 import QueueModel, { queueKeys } from '../models/Queue'
-import UserModel from '../models/User'
+import UserModel, { Role } from '../models/User'
 import * as _ from 'lodash'
 
 export async function createDoctorOrder (req: Request, res: Response) {
-  if (await UserModel.findById(req.body.doctorId) === undefined) {
+  if (await UserModel.find({ doctorId: req.body.doctorId, role: Role.Doctor }) === undefined) {
     return res.status(400).json(failRes('No such doctor!'))
   }
   const queue = {
-    patientId: req.user._id,
+    patientId: '5a75d5d665976245ed2af471', // req.user._id,
     doctorId: req.body.doctorId,
     timeOfRecording: req.body.timeOfRecording,
     timeOfAppointment: req.body.timeOfAppointment
