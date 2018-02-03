@@ -48,7 +48,7 @@ const idDoctorSpecialty = {
   47: 'Стоматолог-ортопед'
 }
 
-const genders = ['male', 'female']
+const genders = { male: 'Мужчина',female: 'Женщина' }
 
 interface Props {
   handleSubmit: () => void
@@ -61,7 +61,7 @@ interface Props {
   loading: boolean
 }
 
-export default function RegistrationForm({ handleSubmit, handleInput, handleFile, handleRole, handleDropdown, loading, role, error }: Props) {
+export default function RegistrationForm ({ handleSubmit, handleInput, handleFile, handleRole, handleDropdown, loading, role, error }: Props) {
   return (
     <Container>
       <Segment>
@@ -96,7 +96,7 @@ export default function RegistrationForm({ handleSubmit, handleInput, handleFile
             onChange={handleInput} type='tel' />
           <Form.Input name='yearOfBirth' placeholder='Год рождения' required={true} minLength={'4'} maxLength={'15'}
             onChange={handleInput} type='number' />
-          <Form.Dropdown name='gender' placeholder='Пол' fluid={true} selection={true} options={genders.map((e, i) => ({ key: i, value: e, text: e }))} onChange={handleDropdown} />
+          <Form.Dropdown name='gender' placeholder='Пол' fluid={true} selection={true} options={Object.keys(genders).map((index, i) => ({ key: i, value: index, text: genders[index] }))} onChange={handleDropdown} />
           {role === 'Doctor' &&
             <div>
               <Form.Input name='placeOfWork' placeholder='Место работы' required={true} onChange={handleInput} type='text' />
