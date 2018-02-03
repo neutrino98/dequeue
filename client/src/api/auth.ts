@@ -7,7 +7,15 @@ export interface RegistrationCredentials extends LoginCredentials {
   name: string
   surname: string
   mobile: string
+  gender: string
+  yearOfBirth: number
   role: string
+  imageUrl: string
+}
+
+export interface DoctorCredentials extends RegistrationCredentials {
+  doctorSpecialty: string
+  placeOfWork: string
 }
 
 export async function login (credentials: LoginCredentials): Promise<string> {
@@ -23,6 +31,18 @@ export async function login (credentials: LoginCredentials): Promise<string> {
 }
 
 export async function register (credentials: RegistrationCredentials): Promise<boolean> {
+  const response = await fetch('/api/v1/register', {
+    method: 'post',
+    body: JSON.stringify(credentials),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  if (response.status >= 500) throw new Error('Server error')
+  const json = await response.json()
+  return json.success
+}
+
+export async function registerDoctor (credentials: DoctorCredentials): Promise<boolean> {
+  console.log('Credentials: ', credentials)
   const response = await fetch('/api/v1/register', {
     method: 'post',
     body: JSON.stringify(credentials),

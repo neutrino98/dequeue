@@ -4,7 +4,7 @@ import { getUsers } from '../../controllers/getUsers'
 
 const userRouter = express.Router()
 
-userRouter.get('/user/:id', profile)
-userRouter.get('/user', getUsers)
+userRouter.get('/users/:id', profile)
+userRouter.get('/users', getUsers)
 
 export = userRouter
