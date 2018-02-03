@@ -38,13 +38,18 @@ enum DoctorSpecialty {
   Pediatrician = 'Педіатр',
   Cardiologists = 'Кардіолог',
   Dermatologists = 'Дерматолог',
-  Neurologists = 'Невролог',
+  Neurologists = 'Невропотолог',
   Otolaryngologists = 'Оториноларинголог',
   Surgeon = 'Хірург',
   Urologists = 'Уролог',
   Gastroenterologists = 'Гастроінтеролог',
   Gynaecologists = 'Гінеколог',
-  Psychiatrists = 'Психіатр'
+  Psychiatrists = 'Психіатр',
+  Ophthalmologists = 'Офтальмолог',
+  Pulmonologists = 'Пульмонолог',
+  Traumatologists = 'Травмотолог',
+  Proctologists = 'Проктолог',
+  Psychologist = 'Психолог'
 }
 
 enum DoctorCategory {
@@ -90,11 +95,7 @@ export const UserSchema = new Schema({
   activated: {
     type: Boolean,
     required: false,
-    default: false
-  },
-  position: {
-    type: String,
-    required: false
+    default: true
   },
   doctorSpecialty: {
     type: String,
@@ -110,12 +111,12 @@ export const UserSchema = new Schema({
     type: String,
     required: false
   },
-  maxTimeOfAppointment: {
-    type: Number,
+  experienceOfWork: {
+    type: String,
     required: false
   },
-  minTimeOfAppointment: {
-    type: Number,
+  timeOfWorking: {
+    type: Array,
     required: false
   }
 })
