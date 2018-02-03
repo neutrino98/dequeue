@@ -12,10 +12,10 @@ const Header = (props: RouteComponentProps<any>) => {
         </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item as={NavLink} to='/login'>
-            Login
+            Войти
           </Menu.Item>
           <Menu.Item as={NavLink} to='/register'>
-            Register
+            Зарегистрироваться
           </Menu.Item>
         </Menu.Menu>
       </Container>

@@ -27,15 +27,13 @@ export const userKeys = ['name', 'imageUrl', 'surname', 'mobile', 'password', 'e
 
 export interface Doctor extends User {
   activated: boolean
-  position: string
   doctorSpecialty: string
-  doctorCategory: DoctorCategory
   placeOfWork: string
   maxTimeOfAppointment: number
   minTimeOfAppointment: number
 }
 
-export const doctorKeys = [...userKeys, 'activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'yearOfBirth', 'gender']
+export const doctorKeys = [...userKeys, 'activated', 'doctorSpecialty', 'placeOfWork']
 
 export const idDoctorSpecialty = {
   1: 'Кардиолог',
@@ -148,11 +146,6 @@ export const idSymptoms = {
   248: 'Увеличение лимфоузлов в подмышечной впадине',
   273: 'Сухость глаз',
   287: 'Глазная боль' }
-
-enum DoctorCategory {
-  HeadDoctor = 'Головний лікар',
-  Doctor = 'Лікар'
-}
 
 export const UserSchema = new Schema({
   name: {

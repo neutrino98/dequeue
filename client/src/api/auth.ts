@@ -14,9 +14,7 @@ export interface RegistrationCredentials extends LoginCredentials {
 }
 
 export interface DoctorCredentials extends RegistrationCredentials {
-  position: string
   doctorSpecialty: string
-  doctorCategory: string
   placeOfWork: string
 }
 
@@ -44,6 +42,7 @@ export async function register (credentials: RegistrationCredentials): Promise<b
 }
 
 export async function registerDoctor (credentials: DoctorCredentials): Promise<boolean> {
+  console.log('Credentials: ', credentials)
   const response = await fetch('/api/v1/register', {
     method: 'post',
     body: JSON.stringify(credentials),

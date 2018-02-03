@@ -16,8 +16,8 @@ export default function LoginForm ({ handleSubmit, handleEmail, handlePassword, 
         {error && <Segment color={'red'}>{error}</Segment>}
         <Form onSubmit={handleSubmit}>
           <Form.Input placeholder='Email' required={true} minLength={'6'} maxLength={'100'} onChange={handleEmail} type='email' />
-          <Form.Input placeholder='Password' required={true} minLength={'6'} maxLength={'100'} onChange={handlePassword} type='password'/>
-          <Button type={'submit'} loading={loading} content='Log In'/>
+          <Form.Input placeholder='Пароль' required={true} minLength={'6'} maxLength={'100'} onChange={handlePassword} type='password'/>
+          <Button type={'submit'} loading={loading} content='Войти'/>
         </Form>
       </Segment>
     </Container>
