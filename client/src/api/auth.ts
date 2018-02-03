@@ -8,6 +8,7 @@ export interface RegistrationCredentials extends LoginCredentials {
   surname: string
   mobile: string
   role: string
+  imageName: string
 }
 
 export async function login (credentials: LoginCredentials): Promise<string> {

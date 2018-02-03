@@ -18,9 +18,10 @@ export interface User extends mongoose.Document {
   password: string
   email: string
   role: Role
+  imageName: string
 }
 
-export const userKeys = ['name', 'surname', 'mobile', 'password', 'email', 'role']
+export const userKeys = ['name', 'imageName', 'surname', 'mobile', 'password', 'email', 'role']
 
 export interface Doctor extends User {
   activated: Boolean
@@ -69,6 +70,9 @@ export const UserSchema = new Schema({
     type: String,
     validate: mobile => validator.isMobilePhone(mobile, 'any'),
     required: true
+  },
+  imageName: {
+    type: String
   },
   password: {
     type: String,
