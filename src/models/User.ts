@@ -23,18 +23,18 @@ export interface User extends mongoose.Document {
 export const userKeys = ['name', 'surname', 'mobile', 'password', 'email', 'role']
 
 export interface Doctor extends User {
-  activated: Boolean
-  position: String
-  doctorSpecialty: DoctorSpecialty
+  activated: boolean
+  position: string
+  doctorSpecialty: string
   doctorCategory: DoctorCategory
-  placeOfWork: String
+  placeOfWork: string
   maxTimeOfAppointment: number
   minTimeOfAppointment: number
 }
 
 export const doctorKeys = [...userKeys, 'activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'maxTimeOfAppointment', 'minTimeOfAppointment']
 
-const idDoctorSpecialty = {
+export const idDoctorSpecialty = {
   1: 'Кардиолог',
   4: 'Иглорефлексотерапев',
   5: 'Аллерголог',
@@ -81,7 +81,7 @@ const idDoctorSpecialty = {
   47: 'Стоматолог-ортопед'
 }
 
-const idSymptoms = {
+export const idSymptoms = {
   9: 'Головная боль',
   10: 'Абдоминальная боль',
   11: 'Лихорадка',
