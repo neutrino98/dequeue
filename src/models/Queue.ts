@@ -1,23 +1,23 @@
-
 import * as mongoose from 'mongoose'
-import { UserSchema } from '../models/User'
-import { CabinetSchema } from '../models/Cabinet'
+import { UserSchema } from './User'
 
 const Schema = mongoose.Schema
 
-interface Queue extends mongoose.Document {
-  cabinet: Object,
-  user: Object,
-  timeOfRecording: any,
+export interface Queue extends mongoose.Document {
+  doctor: Object
+  patient: Object
+  timeOfRecording: any
   timeOfAppointment: any
 }
 
+export const queueKeys = ['doctor', 'patient', 'timeOfRecording', 'timeOfAppointment']
+
 const QueueSchema = new Schema({
-  cabinet: {
-    type: CabinetSchema,
+  doctor: {
+    type: UserSchema,
     required: true
   },
-  user: {
+  patient: {
     type: UserSchema,
     required: true
   },
