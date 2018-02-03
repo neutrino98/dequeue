@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { failRes, serverErrRes, successRes } from '../utils/responses'
 import QueueModel from '../models/Queue'
 

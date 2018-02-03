@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as api from '../api/auth'
-import { DoctorCredentials } from '../api/auth'
+import { DoctorCredentials, Gender, Role } from '../api/auth'
 import { RouteComponentProps } from 'react-router'
 import RegistrationForm from '../components/RegistrationForm'
 import { DropdownProps } from 'semantic-ui-react'
@@ -9,7 +9,6 @@ import { withRouter } from 'react-router-dom'
 interface State extends DoctorCredentials {
   file: File | null
   error: null | string
-  role: string
   loading: boolean
 }
 
@@ -29,9 +28,9 @@ export default withRouter(class RegistrationPage extends React.Component<RouteCo
     loading: false,
     doctorSpecialty: '',
     placeOfWork: '',
-    gender: 'male',
+    gender: 'male' as Gender,
     yearOfBirth: 1990,
-    role: 'Student'
+    role: 'Student' as Role
   }
 
   userInputs = ['name', 'surname', 'mobile', 'email', 'password', 'role', 'gender', 'yearOfBirth']
@@ -90,7 +89,7 @@ export default withRouter(class RegistrationPage extends React.Component<RouteCo
     }
   }
 
-  handleRole = (role: string) => {
+  handleRole = (role: Role) => {
     this.setState({ role })
   }
 

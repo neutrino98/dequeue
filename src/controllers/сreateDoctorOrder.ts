@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { failRes, serverErrRes, successRes } from '../utils/responses'
-import QueueModel, { queueKeys } from '../models/Queue'
+import QueueModel from '../models/Queue'
 import UserModel, { Role } from '../models/User'
 import * as moment from 'moment'
 import * as _ from 'lodash'

@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { Button, Dropdown } from 'semantic-ui-react'
+import { Button, Dropdown, DropdownProps } from 'semantic-ui-react'
 import { SearchMode } from '../containers/SearchPage'
 import Doctors from '../definitions/Doctors'
 import Symptoms from '../definitions/Symptoms'
-import { DropdownProps } from 'semantic-ui-react'
 
 interface Props {
   onChange: (e: any, data: DropdownProps) => void

@@ -1,6 +1,6 @@
 import * as express from 'express'
 import { createDoctorOrder } from '../../controllers/сreateDoctorOrder'
-import { userRecords, doctorRecords } from '../../controllers/getMedicalRecords'
+import { doctorRecords, userRecords } from '../../controllers/getMedicalRecords'
 
 const queueRouter = express.Router()
 
