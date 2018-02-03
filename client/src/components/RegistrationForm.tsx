@@ -71,9 +71,15 @@ export default function RegistrationForm ({ handleSubmit, handleInput, handleFil
           <Grid centered columns={2}>
             <Grid.Column>
                 <Button.Group>
-                  <Button positive={role === 'Student'} onClick={() => handleRole('Student')}>Student</Button>
+                  <Button positive={role === 'Student'} onClick={e => {
+                    e.preventDefault()
+                    handleRole('Student')
+                  }}>Student</Button>
                   <Button.Or/>
-                  <Button positive={role === 'Doctor'} onClick={() => handleRole('Doctor')}>Doctor</Button>
+                  <Button positive={role === 'Doctor'} onClick={e => {
+                    e.preventDefault()
+                    handleRole('Doctor')
+                  }}>Doctor</Button>
                 </Button.Group>
             </Grid.Column>
           </Grid>
