@@ -18,23 +18,22 @@ export interface User extends mongoose.Document {
   password: string
   email: string
   role: Role
+  imageUrl: string
   gender: string
   yearOfBirth: number
 }
 
-export const userKeys = ['name', 'surname', 'mobile', 'password', 'email', 'role', 'yearOfBirth', 'gender']
+export const userKeys = ['name', 'imageUrl', 'surname', 'mobile', 'password', 'email', 'role', 'gender', 'yearOfBirth']
 
 export interface Doctor extends User {
   activated: boolean
-  position: string
   doctorSpecialty: string
-  doctorCategory: DoctorCategory
   placeOfWork: string
   maxTimeOfAppointment: number
   minTimeOfAppointment: number
 }
 
-export const doctorKeys = [...userKeys, 'activated', 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork', 'yearOfBirth', 'gender']
+export const doctorKeys = [...userKeys, 'activated', 'doctorSpecialty', 'placeOfWork']
 
 export const idDoctorSpecialty = {
   1: 'Кардиолог',
@@ -148,11 +147,6 @@ export const idSymptoms = {
   273: 'Сухость глаз',
   287: 'Глазная боль' }
 
-enum DoctorCategory {
-  HeadDoctor = 'Головний лікар',
-  Doctor = 'Лікар'
-}
-
 export const UserSchema = new Schema({
   name: {
     type: String,
@@ -170,6 +164,10 @@ export const UserSchema = new Schema({
     type: String,
     validate: mobile => validator.isMobilePhone(mobile, 'any'),
     required: true
+  },
+  imageUrl: {
+    type: String,
+    default: 'http://res.cloudinary.com/dtuhcdmvr/image/upload/v1517662645/defaultAvatar.png'
   },
   password: {
     type: String,
