@@ -5,20 +5,22 @@ interface Props {
   handleSubmit: () => void
   handleInput: (e: {}) => void
   handleFile: (files: FileList | null) => void
+  handleRole: (role: string) => void
+  currentRole: string
   error: null | string
   loading: boolean
 }
 
-export default function RegistrationForm ({ handleSubmit, handleInput, handleFile, loading, error }: Props) {
+export default function RegistrationForm ({ handleSubmit, handleInput, handleFile, handleRole, loading, currentRole, error }: Props) {
   return (
     <Container>
         <Segment>
             {error && <Segment color={'red'}>{error}</Segment>}
             <Form onSubmit={handleSubmit}>
                 <Button.Group>
-                  <Button>Student</Button>
+                  <Button positive={currentRole === 'Student'} onClick={() => handleRole('Student')}>Student</Button>
                   <Button.Or />
-                  <Button positive>Doctor</Button>
+                  <Button positive={currentRole === 'Doctor'} onClick={() => handleRole('Doctor')}>Doctor</Button>
                 </Button.Group>
                 <Form.Input name='email' placeholder='Email' required={true} minLength={'6'} maxLength={'100'} onChange={handleInput} type='email' />
                 <Form.Input name='password' placeholder='Password' required={true} minLength={'6'} maxLength={'100'} onChange={handleInput} type='password'/>

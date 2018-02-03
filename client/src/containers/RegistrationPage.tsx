@@ -9,13 +9,14 @@ import RegistrationForm from '../components/RegistrationForm'
 interface State extends RegistrationCredentials {
   file: File | null
   error: null | string
+  currentRole: string
   loading: boolean
 }
 
 export default class RegistrationPage extends React.Component<RouteComponentProps<{}>, State> {
 
   defaultImageUrl: string = 'http://res.cloudinary.com/dtuhcdmvr/image/upload/v1517662645/defaultAvatar.png'
-
+  validNames = ['name', 'surname', 'mobile', 'email', 'password', 'role']
   state = {
     name: '',
     surname: '',
@@ -26,12 +27,12 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
     error: null,
     imageUrl: this.defaultImageUrl,
     file: null,
-    loading: false
+    loading: false,
+    currentRole: 'Student'
   }
 
   handleInput = ({ currentTarget: { value, name } }: any) => {
-    const validNames = ['name', 'surname', 'mobile', 'email', 'password', 'role']
-    if (!validNames.includes(name)) {
+    if (!this.validNames.includes(name)) {
       throw new Error(`Not valid input name - ${name}`)
     }
     this.setState({ [name]: value })
@@ -42,7 +43,6 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
       this.setState({ loading: true })
       const imageUrl = await this.uploadImage(this.state.file)
       this.setState({ imageUrl: imageUrl ? imageUrl : this.defaultImageUrl })
-      console.log(this.state)
       const success = await api.register(this.state)
       if (success) {
         this.props.history.push('/login')
@@ -78,8 +78,12 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
     }
   }
 
+  handleRole = (currentRole: string) => {
+    this.setState({ currentRole })
+  }
+
   render () {
-    const { error, loading } = this.state
+    const { error, loading, currentRole } = this.state
     return (
         <RegistrationForm
             handleInput={this.handleInput}
@@ -87,6 +91,8 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
             handleFile={this.handleFile}
             error={error}
             loading={loading}
+            currentRole={currentRole}
+            handleRole={this.handleRole}
         />
     )
   }
