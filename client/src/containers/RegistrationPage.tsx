@@ -1,38 +1,45 @@
 import * as React from 'react'
 import * as api from '../api/auth'
-import { RegistrationCredentials } from '../api/auth'
+import { DoctorCredentials } from '../api/auth'
 import { RouteComponentProps } from 'react-router'
 import RegistrationForm from '../components/RegistrationForm'
 
-// import {Image as CloudinaryImage} from 'cloudinary-react'
-
-interface State extends RegistrationCredentials {
+interface State extends DoctorCredentials {
   file: File | null
   error: null | string
-  currentRole: string
+  role: string
   loading: boolean
 }
 
 export default class RegistrationPage extends React.Component<RouteComponentProps<{}>, State> {
 
   defaultImageUrl: string = 'http://res.cloudinary.com/dtuhcdmvr/image/upload/v1517662645/defaultAvatar.png'
-  validNames = ['name', 'surname', 'mobile', 'email', 'password', 'role']
+
   state = {
     name: '',
     surname: '',
     mobile: '',
     email: '',
     password: '',
-    role: '',
     error: null,
     imageUrl: this.defaultImageUrl,
     file: null,
     loading: false,
-    currentRole: 'Student'
+    position: '',
+    doctorSpecialty: '',
+    doctorCategory: '',
+    placeOfWork: '',
+    gender: 'male',
+    yearOfBirth: 1990,
+    role: 'Student'
   }
 
+  userInputs = ['name', 'surname', 'mobile', 'email', 'password', 'role', 'gender', 'yearOfBirth']
+  doctorInputs = [...this.userInputs, 'position', 'doctorSpecialty', 'doctorCategory', 'placeOfWork']
+  validNames = (role: string): String[] => role === 'Student' ? this.userInputs : this.doctorInputs
+
   handleInput = ({ currentTarget: { value, name } }: any) => {
-    if (!this.validNames.includes(name)) {
+    if (!this.validNames(this.state.role).includes(name)) {
       throw new Error(`Not valid input name - ${name}`)
     }
     this.setState({ [name]: value })
@@ -43,7 +50,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
       this.setState({ loading: true })
       const imageUrl = await this.uploadImage(this.state.file)
       this.setState({ imageUrl: imageUrl ? imageUrl : this.defaultImageUrl })
-      const success = await api.register(this.state)
+      const success = await this.state.role === 'Student' ? api.register(this.state) : api.registerDoctor(this.state)
       if (success) {
         this.props.history.push('/login')
       } else {
@@ -78,12 +85,12 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
     }
   }
 
-  handleRole = (currentRole: string) => {
-    this.setState({ currentRole })
+  handleRole = (role: string) => {
+    this.setState({ role })
   }
 
   render () {
-    const { error, loading, currentRole } = this.state
+    const { error, loading, role } = this.state
     return (
         <RegistrationForm
             handleInput={this.handleInput}
@@ -91,7 +98,7 @@ export default class RegistrationPage extends React.Component<RouteComponentProp
             handleFile={this.handleFile}
             error={error}
             loading={loading}
-            currentRole={currentRole}
+            role={role}
             handleRole={this.handleRole}
         />
     )
