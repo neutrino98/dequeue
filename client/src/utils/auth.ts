@@ -2,6 +2,6 @@ export function setToken (token: string): void {
   localStorage.setItem('token', token)
 }
 
-export function getToken (token: string): string | null {
+export function getToken (): string | null {
   return localStorage.getItem('token')
 }

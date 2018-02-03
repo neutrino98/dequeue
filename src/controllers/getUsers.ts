@@ -4,12 +4,10 @@ import { diagnosis } from '../services/apiMedic'
 import User, { idDoctorSpecialty } from '../models/User'
 import * as _ from 'lodash'
 
-const paginationCount = 3
-
 export async function getUsers (req: Request, res: Response) {
   const { query: { doctorSpecialty, symptom } } = req
   if (doctorSpecialty) {
-    const doctors = await User.find({ where: { doctorSpecialty } })
+    const doctors = await User.find({ doctorSpecialty })
     return res.status(200).json(successRes({ doctors }))
   } else if (symptom) {
     const diagnosisResult = await diagnosis(symptom, res.locals.user)
