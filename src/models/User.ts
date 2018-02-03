@@ -11,6 +11,16 @@ export enum Role {
   Admin = 'Admin'
 }
 
+export enum Day {
+  Monday = 'Понедельник',
+  Tuesday = 'Вторник',
+  Wednesday = 'Среда',
+  Thursday = 'Четверг',
+  Friday = 'Пятница',
+  Saturday = 'Суббота',
+  Sunday = 'Воскресенье'
+}
+
 export interface User extends mongoose.Document {
   name: string
   surname: string
@@ -26,14 +36,13 @@ export interface User extends mongoose.Document {
 export const userKeys = ['name', 'imageUrl', 'surname', 'mobile', 'password', 'email', 'role', 'gender', 'yearOfBirth']
 
 export interface Doctor extends User {
-  activated: boolean
   doctorSpecialty: string
   placeOfWork: string
-  maxTimeOfAppointment: number
-  minTimeOfAppointment: number
+  sessionTime: string
+  availableDays: Day
 }
 
-export const doctorKeys = [...userKeys, 'activated', 'doctorSpecialty', 'placeOfWork']
+export const doctorKeys = [...userKeys, 'doctorSpecialty', 'placeOfWork']
 
 export const idDoctorSpecialty = {
   1: 'Кардиолог',
@@ -204,9 +213,13 @@ export const UserSchema = new Schema({
     type: String,
     required: false
   },
-  timeOfWorking: {
-    type: Array,
-    required: false
+  sessionTime: {
+    type: String,
+
+  },
+  availableDays: {
+    type: String,
+    enum: enumValues(Day)
   },
   response: {
     type: {
