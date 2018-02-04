@@ -101,6 +101,9 @@ export default function RegistrationForm ({ handleSubmit, handleInput, handleFil
             <div>
               <Form.Input name='placeOfWork' placeholder='Место работы' required={true} onChange={handleInput} type='text' />
               <Form.Dropdown name='doctorSpecialty' placeholder='Специальность' fluid={true} search={true} selection={true} options={Object.keys(idDoctorSpecialty).map((id, i) => ({ key: i, value: idDoctorSpecialty[id], text: idDoctorSpecialty[id] }))} onChange={handleDropdown} />
+              <Form.Input name='sessionTime' placeholder='Время приема' required={true} onChange={handleInput} type='number' min={5} max={60} />
+              <Form.Input name='startTime' placeholder='Начало работы' required={true} onChange={handleInput} type='time' />
+              <Form.Input name='finishTime' placeholder='Конец работы' required={true} onChange={handleInput} type='time' />
             </div>
           }
           <Form.Group>
