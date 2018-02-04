@@ -19,3 +19,13 @@ export async function arrange (from: string | null, doctorId: string, date: stri
     }
   })
 }
+
+export async function getQueues (): Promise<any> {
+  const response = await fetch('/api/v1/queue/doctor',{
+    headers: {
+      authorization: `Bearear ${getToken()}`
+    }
+  })
+  const json = await response.json()
+  return json.data
+}
