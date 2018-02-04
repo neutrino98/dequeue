@@ -1,28 +1,33 @@
 import * as React from 'react'
-import { User } from '../api/auth'
+import { Doctor } from '../definitions/User'
 import { Profile } from '../components/Profile'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+import Arranger from '../containers/Arranger'
+import { Container } from 'semantic-ui-react'
 
 interface State {
-  user: User | null
+  user: Doctor | null
 }
 
 export default withRouter(class ProfilePage extends React.Component<RouteComponentProps<any>, State> {
-
   state = {
     user: null
   }
 
   async componentDidMount () {
-    console.log(this.props.match.params.id)
-    const user: User = (await(await fetch('/api/v1/users/' + this.props.match.params.id)).json()).data
+    const user: Doctor = (await(await fetch('/api/v1/users/' + this.props.match.params.id)).json()).data
     this.setState({ user })
   }
 
   render () {
-    console.log('Hello world')
+    if (!this.state.user) {
+      return <div>loading</div>
+    }
     return (
-      <Profile user={this.state.user}/>
+      <Container>
+        <Profile user={this.state.user}/>
+        <Arranger user={this.state.user} />
+      </Container>
     )
   }
 })

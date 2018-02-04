@@ -5,6 +5,7 @@ import User, { idDoctorSpecialty } from '../models/User'
 
 export async function getUsers (req: Request, res: Response) {
   const { query: { doctorSpecialty, symptom } } = req
+  console.log(res.locals.user)
   if (doctorSpecialty) {
     const doctors = await User.find({ doctorSpecialty })
     return res.status(200).json(successRes({ doctors }))

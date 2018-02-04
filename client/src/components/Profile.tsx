@@ -1,15 +1,14 @@
 import * as React from 'react'
-import { User } from '../api/auth'
+import { Doctor } from '../definitions/User'
 import { Divider, Grid, Label, Segment } from 'semantic-ui-react'
-// import { Segment } from 'semantic-ui-react'
 
-export const Profile = ({ user }: {user: User | null}) => (
+export const Profile = ({ user }: {user: Doctor | null}) => (
   <div>
     {user &&
     <Segment padded={true}>
       <Grid stackable={true} columns={4}>
         <Grid.Column width={4}>
-          <img style={{maxWidth: 'auto', maxHeight: '20vh'}} src={user.imageUrl}/>
+          <img style={{ maxWidth: 'auto', maxHeight: '20vh' }} src={user.imageUrl}/>
         </Grid.Column>
         <Grid.Column width={6}>
           <Label horizontal={true}>ФИО:</Label>

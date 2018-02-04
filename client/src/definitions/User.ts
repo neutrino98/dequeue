@@ -13,7 +13,7 @@ export interface User {
   _id: string
   name: string
   surname: string
-  mobile: number
+  placeOfWork: string
   password: string
   email: string
   role: Role
