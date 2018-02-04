@@ -29,8 +29,10 @@ export default class LoginPage extends React.Component<RouteComponentProps<{}>, 
   handleSubmit = async () => {
     try {
       this.setState({ loading: true })
-      const token = await api.login(this.state)
-      auth.setToken(token)
+      const data = await api.login(this.state)
+      auth.setToken(data.token)
+      console.log('data: ', data)
+      auth.setId(data.user._id)
       this.props.history.push('/')
     } catch (e) {
       this.setState({ error: e.message })

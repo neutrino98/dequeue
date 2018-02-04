@@ -1,41 +1,31 @@
 import * as mongoose from 'mongoose'
-import * as moment from 'moment'
-import * as validator from 'validator'
-import { UserSchema } from './User'
 
 const Schema = mongoose.Schema
 
 export interface Queue extends mongoose.Document {
   doctorId: string
   patientId: string
-  timeOfRecording: any
-  timeOfAppointment: any
+  from: string
+  to: string
 }
 
-export const queueKeys = ['doctorId', 'patientId', 'timeOfRecording', 'timeOfAppointment']
+export const queueKeys = ['doctorId', 'patientId', 'timeOfRecording', 'from']
 
 const QueueSchema = new Schema({
   doctorId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     required: true
   },
   patientId: {
     type: String,
     required: true
   },
-  timeOfRecording: {
+  from: {
     type: String,
-    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
-    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
-    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
-    required: true,
-    default: Date.now
+    required: true
   },
-  timeOfAppointment: {
+  to: {
     type: String,
-    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
-    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
-    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
     required: true
   }
 })
