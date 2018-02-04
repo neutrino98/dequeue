@@ -1,3 +1,5 @@
+import { getToken } from '../utils/auth'
+
 export async function getTime (date: string, doctorId: string): Promise<any> {
   return [
     {
@@ -24,6 +26,15 @@ export async function getTime (date: string, doctorId: string): Promise<any> {
 }
 
 export async function arrange (from: string | null, doctorId: string, date: string | null): Promise<any> {
-  console.log(from, doctorId, date)
-  return true
+  await fetch('/api/v1/queue', {
+    body: JSON.stringify({
+      from: `${date} ${from}`,
+      doctorId
+    }),
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearear ${getToken()}`
+    }
+  })
 }
