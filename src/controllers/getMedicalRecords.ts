@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { failRes, serverErrRes, successRes } from '../utils/responses'
 import QueueModel from '../models/Queue'
 
-export async function userRecords (res: Response) {
+export async function userRecords (req: Request, res: Response) {
   try {
     console.log('RES: ', res)
     const queueries = await QueueModel.find({ patient_id: res.locals.user._id })
