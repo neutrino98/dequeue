@@ -1,27 +1,28 @@
 import { Request, Response } from 'express'
 import { failRes, serverErrRes, successRes } from '../utils/responses'
-import QueueModel from '../models/Queue'
-import UserModel from '../models/User'
+import Queue from '../models/Queue'
+import User from '../models/User'
 import * as moment from 'moment'
 
-export async function freeTimeByDoctorIdAndDate ({ params }: Request, res: Response) {
-  const { date, doctorId } = params
+export async function freeTimeByDoctorIdAndDate ({ query }: Request, res: Response) {
+  const { date, doctorId } = query
   try {
-    const queries = await QueueModel.find({ date: date, doctorId: doctorId })
-    const doctor = await UserModel.findById(doctorId)
-    const start = moment(doctor.startTime, 'YYYY-MM-DD HH:mm')
-    const finish = moment(doctor.finishTime, 'YYYY-MM-DD HH:mm')
-    console.log(moment.duration(finish.diff(start)).asMinutes)
-    const count = moment.duration(finish.diff(start)).asMinutes as any / doctor.sessionTime
-    let times = []
-    const fromDate = moment(doctor.startTime, 'YYYY-MM-DD HH:mm')
-    for (let i = 0; i < count; i++) {
-      times.push({ from: fromDate.add(doctor.sessionTime * i, 'minutes'), to: fromDate.add(doctor.sessionTime * (i + 1), 'minutes') })
+    const queries = await Queue.find({ from: { $regex: date, $options: 'i' }, doctorId })
+    const busy = queries.map(queue => moment(queue.from).format('HH:mm'))
+    const doctor = await User.findById(doctorId)
+    const start = moment(doctor.startTime, 'HH:mm')
+    const finish = moment(doctor.finishTime, 'HH:mm')
+    let allTime = []
+    while (finish.diff(start) > 0) {
+      allTime.push({
+        from: start.format('HH:mm'),
+        to: moment(start.add(doctor.sessionTime, 'minutes')).format('HH:mm')
+      })
     }
-    let freeTime = []
-    times.filter(time => {
-      if(query.from)
+    const freeTime = allTime.filter(time => {
+      return !busy.find(busyTime => busyTime === time.from)
     })
+    res.status(200).json(successRes({ freeTime }))
   } catch (e) {
     res.status(500).json(serverErrRes())
   }

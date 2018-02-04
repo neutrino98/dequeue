@@ -1,10 +1,10 @@
 import * as express from 'express'
-import { doctorRecords } from '../../controllers/getMedicalRecords'
 import { createDoctorOrder } from '../../controllers/сreateDoctorOrder'
+import { freeTimeByDoctorIdAndDate } from '../../controllers/freeTimeByDoctorIdAndDate';
 
 const timeRouter = express.Router()
 
-timeRouter.get('/time', doctorRecords)
+timeRouter.get('/time', freeTimeByDoctorIdAndDate)
 timeRouter.post('/time', createDoctorOrder)
 
 export = timeRouter
