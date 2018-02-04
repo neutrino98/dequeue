@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import * as validator from 'validator'
+import * as moment from 'moment'
 import { sha512 } from '../utils/sha512'
 import { enumValues } from '../utils/enumUtils'
 
@@ -11,6 +12,16 @@ export enum Role {
   Admin = 'Admin'
 }
 
+export enum Day {
+  Monday = 'Понедельник',
+  Tuesday = 'Вторник',
+  Wednesday = 'Среда',
+  Thursday = 'Четверг',
+  Friday = 'Пятница',
+  Saturday = 'Суббота',
+  Sunday = 'Воскресенье'
+}
+
 export interface User extends mongoose.Document {
   name: string
   surname: string
@@ -20,20 +31,22 @@ export interface User extends mongoose.Document {
   role: Role
   imageUrl: string
   gender: string
-  yearOfBirth: number
+  yearOfBirth: number,
+
 }
 
 export const userKeys = ['name', 'imageUrl', 'surname', 'mobile', 'password', 'email', 'role', 'gender', 'yearOfBirth']
 
 export interface Doctor extends User {
-  activated: boolean
   doctorSpecialty: string
   placeOfWork: string
-  maxTimeOfAppointment: number
-  minTimeOfAppointment: number
+  sessionTime: number
+  availableDays: Day
+  startTime: string
+  finishTime: string
 }
 
-export const doctorKeys = [...userKeys, 'activated', 'doctorSpecialty', 'placeOfWork']
+export const doctorKeys = [...userKeys, 'doctorSpecialty', 'placeOfWork', 'startTime', 'finishTime','sessionTime']
 
 export const idDoctorSpecialty = {
   1: 'Кардиолог',
@@ -97,7 +110,6 @@ export const idSymptoms = {
   29: 'Одышка',
   30: 'Хрип',
   31: 'Теснота в груди',
-  33: '',
   35: 'Ангионевротический отек',
   37: 'Тахикардия',
   40: 'Полидипсия',
@@ -106,7 +118,6 @@ export const idSymptoms = {
   46: 'Жжение в горле',
   52: 'Бессоница',
   54: 'Снижение аппетита',
-  56: '',
   57: 'Обморок',
   64: 'Мокрота',
   73: 'Зуд глаз',
@@ -204,9 +215,12 @@ export const UserSchema = new Schema({
     type: String,
     required: false
   },
-  timeOfWorking: {
-    type: Array,
-    required: false
+  sessionTime: {
+    type: Number
+  },
+  availableDays: {
+    type: String,
+    enum: enumValues(Day)
   },
   response: {
     type: {
@@ -224,8 +238,19 @@ export const UserSchema = new Schema({
     type: Number,
     required: true
   },
-  imageURL: {
-    type: String
+  startTime: {
+    type: String,
+    set: startTime => moment(startTime).format('hh:mm'),
+    get: startTime => startTime,
+   // validate: startTime => moment(startTime, 'HH:mm',true).isValid(),
+    required: true
+  },
+  finishTime: {
+    type: String,
+    set: finishTime => moment(finishTime).format('hh:mm'),
+    get: finishTime => finishTime,
+   // validate: finishTime => moment(finishTime, 'HH:mm', true).isValid(),
+    required: true
   }
 })
 
