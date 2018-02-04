@@ -46,7 +46,7 @@ export interface Doctor extends User {
   finishTime: string
 }
 
-export const doctorKeys = [...userKeys, 'doctorSpecialty', 'placeOfWork', 'startTime', 'finishTime']
+export const doctorKeys = [...userKeys, 'doctorSpecialty', 'placeOfWork', 'startTime', 'finishTime','sessionTime']
 
 export const idDoctorSpecialty = {
   1: 'Кардиолог',
@@ -240,17 +240,16 @@ export const UserSchema = new Schema({
   },
   startTime: {
     type: String,
-    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
-    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
-    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
-    required: true,
-    default: Date.now
+    set: startTime => (new Date(startTime)).toUTCString(),
+    get: startTime => (new Date(startTime)).toUTCString(),
+   // validate: startTime => moment(startTime, 'HH:mm',true).isValid(),
+    required: true
   },
   finishTime: {
     type: String,
-    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
-    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
-    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    set: finishTime => (new Date(finishTime)).toUTCString(),
+    get: finishTime => (new Date(finishTime)).toUTCString(),
+   // validate: finishTime => moment(finishTime, 'HH:mm', true).isValid(),
     required: true
   }
 })

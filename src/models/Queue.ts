@@ -23,24 +23,24 @@ const QueueSchema = new Schema({
   },
   from: {
     type: String,
-    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
-    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
-    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    set: from => (new Date(from)).toISOString(),
+    get: from => (new Date(from)).toUTCString(),
+    validate: from => moment(from, moment.ISO_8601).isValid(),
     required: true,
     default: Date.now
   },
   to: {
     type: String,
-    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
-    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
-    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    set: to => (new Date(to)).toString(),
+    get: to => (new Date(to)).toUTCString(),
+    // validate: to => moment(to, moment.ISO_8601).isValid(),
     required: true
   },
   date: {
     type: String,
-    set: timeOfRecording => (new Date(timeOfRecording)).toISOString(),
-    get: timeOfRecording => (new Date(timeOfRecording)).toUTCString(),
-    validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    set: date => (new Date(date)).toString(),
+    get: date => (new Date(date)).toUTCString(),
+    // validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
     required: true
   },
   busy: {
