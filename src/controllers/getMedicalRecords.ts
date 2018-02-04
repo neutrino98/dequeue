@@ -9,9 +9,9 @@ export async function userRecords (req: Request, res: Response) {
     if (!queueries) {
       return res.status(404).json(failRes('No records!'))
     }
-    res.status(200).json(successRes(queueries))
+    return res.status(200).json(successRes(queueries))
   } catch (e) {
-    res.status(500).json(serverErrRes())
+    return res.status(500).json(serverErrRes())
   }
 }
 

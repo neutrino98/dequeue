@@ -5,7 +5,8 @@ import UserModel, { Role } from '../models/User'
 import * as moment from 'moment'
 
 export async function createDoctorOrder ({ body }: Request, res: Response) {
-  const doctor = (await UserModel.findOne({ doctorId: body.doctorId, role: Role.Doctor }))[0]
+
+  const doctor = await UserModel.findOne({ _id: body.doctorId, role: Role.Doctor })
   if (!doctor) {
     return res.status(400).json(failRes('No such doctor!'))
   }
@@ -13,12 +14,13 @@ export async function createDoctorOrder ({ body }: Request, res: Response) {
   const queue = {
     patientId: res.locals.user._id,
     doctorId: body.doctorId,
-    from: body.from,
-    to: moment(body.from).add(doctor.sessionTime, 'mins'),
-    busy: true
+    date: moment(body.date, 'YYYY-MM-DD hh:mm'),
+    from: moment(body.from, 'hh:mm'),
+    to: moment(moment(body.from, 'hh:mm').add(doctor.sessionTime, 'mins')).format('hh:mm')
   }
+
   if (moment(doctor.startTime).isBefore(queue.from) || moment(doctor.finishTime).isAfter(queue.from)) {
-    return res.status(400).json(failRes('Time is not on range'))
+    return res.status(400).json(failRes('Time is not in range'))
   }
 
   try {

@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose'
-import * as moment from 'moment'
+import Date =
 
 const Schema = mongoose.Schema
 
@@ -23,24 +23,21 @@ const QueueSchema = new Schema({
   },
   from: {
     type: String,
-    set: from => (new Date(from)).toISOString(),
-    get: from => (new Date(from)).toUTCString(),
-    validate: from => moment(from, moment.ISO_8601).isValid(),
+    // set: str => moment(str, 'hh:mm'),
+    // get: time => moment(time).format('hh:mm'),
     required: true,
     default: Date.now
   },
   to: {
     type: String,
-    set: to => (new Date(to)).toString(),
-    get: to => (new Date(to)).toUTCString(),
-    // validate: to => moment(to, moment.ISO_8601).isValid(),
+    // set: str => moment(str, 'hh:mm'),
+    // get: time => (time).format('hh:mm'),
     required: true
   },
   date: {
     type: String,
-    set: date => (new Date(date)).toString(),
-    get: date => (new Date(date)).toUTCString(),
-    // validate: timeOfRecording => moment(timeOfRecording, moment.ISO_8601).isValid(),
+    // set: str => moment(str, 'YYYY-MM-DD hh:mm'),
+    // get: date => moment(date).format('YYYY-MM-DD hh:mm'),
     required: true
   },
   busy: {
