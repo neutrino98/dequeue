@@ -216,7 +216,7 @@ export const UserSchema = new Schema({
   },
   sessionTime: {
     type: Number,
-    required: true
+    required: false
   },
   availableDays: {
     type: String,
@@ -240,11 +240,11 @@ export const UserSchema = new Schema({
   },
   startTime: {
     type: String,
-    required: true
+    required: false
   },
   finishTime: {
     type: String,
-    required: true
+    required: false
   }
 })
 
