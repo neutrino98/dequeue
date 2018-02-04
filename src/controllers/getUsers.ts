@@ -12,6 +12,7 @@ export async function getUsers (req: Request, res: Response) {
   } else if (symptom) {
     const diagnosisResult = await diagnosis(symptom, res.locals.user)
     const specialties = diagnosisResult.Specialisation.map(specialist => idDoctorSpecialty[specialist.ID])
+    console.log(specialties)
     const doctors = await User.find({
       $or: specialties.map(specialty => ({ doctorSpecialty: specialty }))
     })

@@ -31,9 +31,8 @@ export default class LoginPage extends React.Component<RouteComponentProps<{}>, 
       this.setState({ loading: true })
       const data = await api.login(this.state)
       auth.setToken(data.token)
-      console.log('data: ', data)
       auth.setId(data.user._id)
-      this.props.history.push('/')
+      this.props.history.push('/search')
     } catch (e) {
       this.setState({ error: e.message })
     } finally {

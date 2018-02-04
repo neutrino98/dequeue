@@ -33,5 +33,10 @@ export async function diagnosis (symptom: string, user: any): Promise<DiagnosisR
   const token = await getToken()
   const uri = `https://sandbox-healthservice.priaid.ch/diagnosis?token=${token}&language=ru-ru&symptoms=[${symptom}]&gender=${user.gender}&year_of_birth=${user.yearOfBirth}`
   const response = await rp(uri)
-  return JSON.parse(response)[0]
+  const json = JSON.parse(response)
+  let result = json[0]
+  if (json[1]) {
+    result.Specialisation.push(...json[1].Specialisation)
+  }
+  return result
 }
