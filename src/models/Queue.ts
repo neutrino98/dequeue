@@ -9,11 +9,11 @@ export interface Queue extends mongoose.Document {
   to: string
 }
 
-export const queueKeys = ['doctorId', 'patientId', 'timeOfRecording', 'timeOfAppointment']
+export const queueKeys = ['doctorId', 'patientId', 'timeOfRecording', 'from']
 
 const QueueSchema = new Schema({
   doctorId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     required: true
   },
   patientId: {
@@ -22,21 +22,11 @@ const QueueSchema = new Schema({
   },
   from: {
     type: String,
-    required: true,
-    default: Date.now
+    required: true
   },
   to: {
     type: String,
     required: true
-  },
-  date: {
-    type: String,
-    required: true
-  },
-  busy: {
-    type: Boolean,
-    required: false,
-    default: false
   }
 })
 

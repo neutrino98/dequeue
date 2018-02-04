@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import UserModel, { doctorKeys, Role, userKeys } from '../models/User'
-import { failRes, serverErrRes, successRes } from '../utils/responses'
-import { ValidationError } from 'mongoose'
+import { failRes, successRes } from '../utils/responses'
 import * as _ from 'lodash'
 
 export async function register ({ body }: Request, res: Response) {
@@ -19,9 +18,9 @@ export async function register ({ body }: Request, res: Response) {
     if (e.code === 11000) {
       return res.status(400).json(failRes('User with such email is already exist'))
     }
-    if (e.name === 'ValidationError') {
+    // if (e.name === 'ValidationError') {
       return res.status(403).json(failRes(e.toString()))
-    }
-    res.status(500).json(serverErrRes())
+    // }
+    // res.status(500).json(serverErrRes())
   }
 }

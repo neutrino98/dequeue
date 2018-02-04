@@ -11,17 +11,21 @@ export async function createDoctorOrder ({ body }: Request, res: Response) {
     return res.status(400).json(failRes('No such doctor!'))
   }
 
+  const fromDate = moment(body.from, 'YYYY-MM-DD HH:mm')
+  const toDate = fromDate.add(doctor.sessionTime, 'minutes')
+
   const queue = {
-    patientId: res.locals.user._id,
+    patientId: res.locals.user._id.toString(),
     doctorId: body.doctorId,
-    date: moment(body.date, 'YYYY-MM-DD hh:mm'),
-    from: moment(body.from, 'hh:mm'),
-    to: moment(moment(body.from, 'hh:mm').add(doctor.sessionTime, 'mins')).format('hh:mm')
+    from: body.from,
+    to: toDate.format('YYYY-MM-DD HH:mm')
   }
 
-  if (moment(doctor.startTime).isBefore(queue.from) || moment(doctor.finishTime).isAfter(queue.from)) {
+  if (moment(doctor.startTime).isBefore(fromDate) || moment(doctor.finishTime).isAfter(toDate)) {
     return res.status(400).json(failRes('Time is not in range'))
   }
+  console.log('Doctor: ', doctor)
+  console.log('Queue: ', queue)
 
   try {
     const newQueue = await QueueModel.create(queue)
