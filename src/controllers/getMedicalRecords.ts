@@ -17,7 +17,8 @@ export async function userRecords (req: Request, res: Response) {
 
 export async function doctorRecords (req: Request, res: Response) {
   try {
-    const queueries = await QueueModel.find({ doctor_id: res.locals.user._id })
+    console.log(res.locals.user._id)
+    const queueries = await QueueModel.find({ doctorId: res.locals.user._id })
     if (!queueries) {
       return res.status(404).json(failRes('No records!'))
     }
