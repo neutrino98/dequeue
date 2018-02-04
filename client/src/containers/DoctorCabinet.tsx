@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Segment, Container } from 'semantic-ui-react'
 
-class DoctorProfilePage extends React.Component {
+class DoctorCabinet extends React.Component {
   render () {
     return (
       <Container>
@@ -13,4 +13,4 @@ class DoctorProfilePage extends React.Component {
   }
 }
 
-export default DoctorProfilePage
+export default DoctorCabinet

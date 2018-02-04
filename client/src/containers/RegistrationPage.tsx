@@ -30,14 +30,18 @@ export default withRouter(class RegistrationPage extends React.Component<RouteCo
     placeOfWork: '',
     gender: 'male' as Gender,
     yearOfBirth: 1990,
-    role: 'Student' as Role
+    role: 'Student' as Role,
+    sessionTime: 5,
+    startTime: '00:00',
+    finishTime: '00:00'
   }
 
   userInputs = ['name', 'surname', 'mobile', 'email', 'password', 'role', 'gender', 'yearOfBirth']
-  doctorInputs = [...this.userInputs, 'doctorSpecialty', 'placeOfWork']
+  doctorInputs = [...this.userInputs, 'doctorSpecialty', 'placeOfWork', 'sessionTime', 'startTime', 'finishTime']
   validNames = (role: string): String[] => role === 'Student' ? this.userInputs : this.doctorInputs
 
   handleInput = ({currentTarget: {name, value}}: any) => {
+    console.log('Name: ', name,' value: ', value)
     if (!this.validNames(this.state.role).includes(name)) {
       throw new Error(`Not valid input name - ${name}`)
     }
