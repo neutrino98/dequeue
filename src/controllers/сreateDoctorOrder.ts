@@ -24,8 +24,6 @@ export async function createDoctorOrder ({ body }: Request, res: Response) {
   if (moment(doctor.startTime).isBefore(fromDate) || moment(doctor.finishTime).isAfter(toDate)) {
     return res.status(400).json(failRes('Time is not in range'))
   }
-  console.log('Doctor: ', doctor)
-  console.log('Queue: ', queue)
 
   try {
     const newQueue = await QueueModel.create(queue)

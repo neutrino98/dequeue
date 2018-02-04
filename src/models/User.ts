@@ -1,6 +1,5 @@
 import * as mongoose from 'mongoose'
 import * as validator from 'validator'
-import * as moment from 'moment'
 import { sha512 } from '../utils/sha512'
 import { enumValues } from '../utils/enumUtils'
 
@@ -216,7 +215,8 @@ export const UserSchema = new Schema({
     required: false
   },
   sessionTime: {
-    type: Number
+    type: Number,
+    required: true
   },
   availableDays: {
     type: String,
@@ -240,16 +240,10 @@ export const UserSchema = new Schema({
   },
   startTime: {
     type: String,
-    set: startTime => moment(startTime).format('hh:mm'),
-    get: startTime => startTime,
-   // validate: startTime => moment(startTime, 'HH:mm',true).isValid(),
     required: true
   },
   finishTime: {
     type: String,
-    set: finishTime => moment(finishTime).format('hh:mm'),
-    get: finishTime => finishTime,
-   // validate: finishTime => moment(finishTime, 'HH:mm', true).isValid(),
     required: true
   }
 })

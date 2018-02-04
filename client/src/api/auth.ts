@@ -38,6 +38,9 @@ export interface RegistrationCredentials extends LoginCredentials {
 export interface DoctorCredentials extends RegistrationCredentials {
   doctorSpecialty: string
   placeOfWork: string
+  sessionTime: number
+  startTime: string
+  finishTime: string
 }
 
 export async function login (credentials: LoginCredentials): Promise<{ token: string, user: { _id: string } }> {
