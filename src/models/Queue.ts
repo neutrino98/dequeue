@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose'
-import Date =
 
 const Schema = mongoose.Schema
 
@@ -23,21 +22,15 @@ const QueueSchema = new Schema({
   },
   from: {
     type: String,
-    // set: str => moment(str, 'hh:mm'),
-    // get: time => moment(time).format('hh:mm'),
     required: true,
     default: Date.now
   },
   to: {
     type: String,
-    // set: str => moment(str, 'hh:mm'),
-    // get: time => (time).format('hh:mm'),
     required: true
   },
   date: {
     type: String,
-    // set: str => moment(str, 'YYYY-MM-DD hh:mm'),
-    // get: date => moment(date).format('YYYY-MM-DD hh:mm'),
     required: true
   },
   busy: {
