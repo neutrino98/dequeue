@@ -15,7 +15,7 @@ export async function userRecords (req: Request, res: Response) {
   }
 }
 
-export async function doctorRecords (res: Response) {
+export async function doctorRecords (req: Request, res: Response) {
   try {
     const queueries = await QueueModel.find({ doctor_id: res.locals.user._id })
     if (!queueries) {
