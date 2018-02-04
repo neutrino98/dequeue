@@ -9,6 +9,7 @@ export async function createDoctorOrder ({ body }: Request, res: Response) {
   if (!doctor) {
     return res.status(400).json(failRes('No such doctor!'))
   }
+
   const queue = {
     patientId: res.locals.user._id,
     doctorId: body.doctorId,

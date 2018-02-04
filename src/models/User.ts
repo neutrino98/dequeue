@@ -240,15 +240,15 @@ export const UserSchema = new Schema({
   },
   startTime: {
     type: String,
-    set: startTime => (new Date(startTime)).toUTCString(),
-    get: startTime => (new Date(startTime)).toUTCString(),
+    set: startTime => moment(startTime).format('hh:mm'),
+    get: startTime => startTime,
    // validate: startTime => moment(startTime, 'HH:mm',true).isValid(),
     required: true
   },
   finishTime: {
     type: String,
-    set: finishTime => (new Date(finishTime)).toUTCString(),
-    get: finishTime => (new Date(finishTime)).toUTCString(),
+    set: finishTime => moment(finishTime).format('hh:mm'),
+    get: finishTime => finishTime,
    // validate: finishTime => moment(finishTime, 'HH:mm', true).isValid(),
     required: true
   }
