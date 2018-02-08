@@ -4,7 +4,7 @@ import { diagnosis } from '../services/apiMedic'
 import User, { idDoctorSpecialty } from '../models/User'
 
 export async function getUsers (req: Request, res: Response) {
-  const { query: { doctorSpecialty, symptom } } = req
+  const { params: { doctorSpecialty, symptom } } = req
   console.log(res.locals.user)
   if (doctorSpecialty) {
     const doctors = await User.find({ doctorSpecialty })
